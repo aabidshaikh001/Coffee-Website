@@ -183,7 +183,7 @@ export default function Home() {
                         : "bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20"
                     }`}
                   >
-                    Order Online
+                    Explore Menu
                     <motion.span
                       className="ml-2"
                       animate={{ x: [0, 4, 0] }}
