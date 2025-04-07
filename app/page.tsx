@@ -222,7 +222,7 @@ export default function Home() {
                         : "bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20"
                     }`}
                   >
-                    Order Online
+                    Book A Seat
                     <motion.span
                       className="ml-2"
                       animate={{ x: [0, 4, 0] }}
@@ -318,7 +318,7 @@ export default function Home() {
 
               <motion.div variants={fadeInUp} className="pt-6">
                 <Button className="bg-white text-amber-900 hover:bg-amber-50 rounded-full px-8 shadow-lg">
-                  Order Online
+                  Book A Seat
                 </Button>
               </motion.div>
             </motion.nav>
