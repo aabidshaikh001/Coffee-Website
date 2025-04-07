@@ -1,14 +1,12 @@
 "use client"
 
-import type React from "react"
-
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Mail, Facebook, Instagram, ArrowRight, Menu, X, Search, ShoppingBag } from "lucide-react"
+import { MapPin, Phone, Mail, Facebook, Instagram, ArrowRight, Menu, X, Search, ShoppingBag } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { motion, AnimatePresence } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import { motion, AnimatePresence, useInView } from "framer-motion"
+import api from "@/lib/api"
 
 const BlurredTextReveal = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const ref = useRef(null)
@@ -70,6 +68,9 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [featuredLocations, setFeaturedLocations] = useState([])
+  const [featuredMenuItems, setFeaturedMenuItems] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,13 +84,51 @@ export default function Home() {
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        
+        // Fetch featured locations and menu items in parallel
+        const [locationsData, menuItemsData] = await Promise.all([
+          api.locations.getFeatured(),
+          api.menu.getFeatured()
+        ])
+        
+        setFeaturedLocations(locationsData)
+        setFeaturedMenuItems(menuItemsData)
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    fetchData()
+  }, [])
 
+  const carouselImages = [
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9JxYjZkZfRTHjrxkiMowyACG38gcCY.png",
+      alt: "Coffee shop interior with baristas and coffee equipment",
+    },
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7GoBwhD5SnEtEvnqBsi9Q2qWMo8rfW.png",
+      alt: "Coffee being poured into a cup",
+    },
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Eub7NeqNEpaYUYJLt36LbRur2WzVuU.png",
+      alt: "Coffee beans being roasted",
+    },
+  ]
 
   const navItems = [
     { name: "About", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Contact Us", href: "/contact-us" },
     { name: "Locations", href: "/locations" },
     { name: "Menu", href: "/menu" },
+   
   ]
 
   return (
@@ -108,8 +147,8 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="flex items-center space-x-6"
             >
-              <Link href="/" className="text-3xl font-serif tracking-wide relative" aria-label="Umber Coffee Home">
-                <span className={`relative z-10 ${scrollY > 50 ? "text-stone-800" : "text-white"}`}>Umber</span>
+              <Link href="/" className="text-3xl font-serif tracking-wide relative" aria-label="Aroma Coffee Home">
+                <span className={`relative z-10 ${scrollY > 50 ? "text-stone-800" : "text-white"}`}>aroma</span>
                 <motion.span
                   className="absolute -bottom-1 left-0 h-[2px] bg-amber-700/60 w-full -z-10"
                   initial={{ width: 0 }}
@@ -183,7 +222,7 @@ export default function Home() {
                         : "bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20"
                     }`}
                   >
-                    Explore Menu
+                    Order Online
                     <motion.span
                       className="ml-2"
                       animate={{ x: [0, 4, 0] }}
@@ -238,8 +277,8 @@ export default function Home() {
             aria-label="Mobile navigation menu"
           >
             <div className="flex justify-between items-center p-6">
-              <Link href="/" className="text-3xl font-serif tracking-wide text-white" aria-label="Umber Coffee Home">
-                Umber
+              <Link href="/" className="text-3xl font-serif tracking-wide text-white" aria-label="Aroma Coffee Home">
+                aroma
               </Link>
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -285,7 +324,7 @@ export default function Home() {
             </motion.nav>
 
             <div className="p-6 text-white/60 text-center text-sm">
-              <p>© {new Date().getFullYear()} by Umber Coffee</p>
+              <p>© {new Date().getFullYear()} by Aroma Coffee</p>
             </div>
           </motion.div>
         )}
@@ -299,7 +338,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.shutterstock.com/image-photo/aerial-view-various-coffee-600nw-1049157986.jpg"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Eub7NeqNEpaYUYJLt36LbRur2WzVuU.png"
               alt="Coffee beans being roasted"
               fill
               className="object-cover"
@@ -341,30 +380,31 @@ export default function Home() {
             </motion.p>
 
             <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-  transition={{ duration: 0.8, delay: 1.5 }}
-  className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
->
-  <Link href="/menu" passHref>
-    <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8 py-6 text-base shadow-xl">
-      Explore Our Menu
-    </Button>
-  </Link>
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+              transition={{ duration: 0.8, delay: 1.5 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+            >
+              <Link href="/menu">
+                <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8 py-6 text-base shadow-xl">
+                  Explore Our Menu
+                </Button>
+              </Link>
 
-  <Link href="/locations" passHref>
-    <Button
-      variant="outline"
-      className="bg-transparent border border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-base backdrop-blur-sm"
-    >
-      Find a Location
-    </Button>
-  </Link>
-</motion.div>
+              <Link href="/locations">
+                <Button
+                  variant="outline"
+                  className="bg-transparent border border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-base backdrop-blur-sm"
+                >
+                  Find a Location
+                </Button>
+              </Link>
+            </motion.div>
           </div>
 
-         
-</section>
+          
+          
+                  </section>
 
         {/* Locations Section */}
         <section className="py-24 bg-white relative" aria-labelledby="locations-heading">
@@ -386,79 +426,71 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Manhattan",
-                  subtitle: "TriBeCa",
-                  address: "130 Franklin St. New York, NY 10013",
-                  subtext: "(Between West Broadway and Varick)",
-                  hours: "Open daily from 8am-5pm",
-                  image:
-                    "https://images.ctfassets.net/1aemqu6a6t65/2TtbPhFR76HduH7bXEGG74/7ca37b868060af2ed83dd566c06228af/walker-hotel-tribeca-manhattan-courtesy-walker-hotel-tribeca-03?w=1200&h=800&q=75",
-                },
-                {
-                  title: "Jersey City",
-                  subtitle: "Downtown",
-                  address: "198 Van Vorst St. Jersey City, NJ 07302",
-                  subtext: "(Downtown Jersey City)",
-                  hours: "Open daily 7am-6pm",
-                  note: "**LIMITED MENU OPTIONS**",
-                  image:
-                    "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/256000/256026-North-Jersey.jpg",
-                },
-                {
-                  title: "Weehawken",
-                  subtitle: "Uptown",
-                  address: "2812 Palisade Ave Weehawken NJ 07086",
-                  subtext: "(corner of Palisade Ave & 32nd St)",
-                  hours: "Open Monday-Friday 7 am to 5 pm",
-                  hours2: "(*Kitchen opens at 8 am) / Sat & Sun 8 am to 5 pm",
-                  image:
-                    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/f4/12/59/hamilton-park.jpg?w=500&h=400&s=1",
-                },
-              ].map((location, i) => (
-                <FadeInView key={i} delay={0.2 * i} className="group">
-                  <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
-                    <div className="relative h-56 overflow-hidden">
-                      <Image
-                        src={location.image || "/placeholder.svg"}
-                        alt={`${location.title} location`}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute bottom-0 left-0 p-6 text-white">
-                        <h3 className="text-xl font-serif">{location.title}</h3>
-                        <p className="text-white/80 text-sm">{location.subtitle}</p>
-                      </div>
-                    </div>
-
+              {isLoading ? (
+                // Loading skeleton
+                [...Array(3)].map((_, i) => (
+                  <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm h-full flex flex-col animate-pulse">
+                    <div className="relative h-56 bg-neutral-200"></div>
                     <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex-1">
-                        <p className="flex items-start mb-2 text-stone-700">
-                          <MapPin className="h-4 w-4 mr-2 text-amber-700 flex-shrink-0 mt-1" aria-hidden="true" />
-                          <span>{location.address}</span>
-                        </p>
-                        <p className="text-stone-500 text-sm ml-6 mb-4">{location.subtext}</p>
-                        <p className="text-stone-700 ml-6">{location.hours}</p>
-                        {location.hours2 && <p className="text-stone-700 text-sm ml-6">{location.hours2}</p>}
-                        {location.note && <p className="text-amber-700 font-medium ml-6 mt-2">{location.note}</p>}
-                      </div>
-
-                      <div className="mt-6 pt-4 border-t border-stone-100">
-                        <Link
-                          href="#"
-                          className="inline-flex items-center text-amber-700 font-medium text-sm group-hover:text-amber-800 transition-colors"
-                        >
-                          Get directions
-                          <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                        </Link>
+                      <div className="h-6 bg-neutral-200 rounded w-1/2 mb-4"></div>
+                      <div className="h-4 bg-neutral-200 rounded w-full mb-2"></div>
+                      <div className="h-4 bg-neutral-200 rounded w-3/4 mb-4"></div>
+                      <div className="h-4 bg-neutral-200 rounded w-5/6 mb-2"></div>
+                      <div className="mt-auto pt-4 border-t border-stone-100">
+                        <div className="h-6 bg-neutral-200 rounded w-1/3"></div>
                       </div>
                     </div>
                   </div>
-                </FadeInView>
-              ))}
+                ))
+              ) : featuredLocations.length > 0 ? (
+                featuredLocations.map((location: any, i) => (
+                  <FadeInView key={location.id} delay={0.2 * i} className="group">
+                    <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
+                      <div className="relative h-56 overflow-hidden">
+                        <Image
+                          src={location.image || "/placeholder.svg"}
+                          alt={`${location.name} location`}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        <div className="absolute bottom-0 left-0 p-6 text-white">
+                          <h3 className="text-xl font-serif">{location.name}</h3>
+                          <p className="text-white/80 text-sm">{location.subtitle}</p>
+                        </div>
+                      </div>
+
+                      <div className="p-6 flex-1 flex flex-col">
+                        <div className="flex-1">
+                          <p className="flex items-start mb-2 text-stone-700">
+                            <MapPin className="h-4 w-4 mr-2 text-amber-700 flex-shrink-0 mt-1" aria-hidden="true" />
+                            <span>{location.address}</span>
+                          </p>
+                          <p className="text-stone-500 text-sm ml-6 mb-4">{location.subtext}</p>
+                          <p className="text-stone-700 ml-6">{location.hours}</p>
+                          {location.hours2 && <p className="text-stone-700 text-sm ml-6">{location.hours2}</p>}
+                          {location.note && <p className="text-amber-700 font-medium ml-6 mt-2">{location.note}</p>}
+                        </div>
+
+                        <div className="mt-6 pt-4 border-t border-stone-100">
+                          <Link
+                            href={`/locations/${location.id}`}
+                            className="inline-flex items-center text-amber-700 font-medium text-sm group-hover:text-amber-800 transition-colors"
+                          >
+                            Get directions
+                            <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </FadeInView>
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-12">
+                  <p className="text-neutral-500">No locations found. Please check back later.</p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -477,7 +509,7 @@ export default function Home() {
                 <div className="relative">
                   <div className="rounded-2xl overflow-hidden shadow-xl">
                     <Image
-                      src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7GoBwhD5SnEtEvnqBsi9Q2qWMo8rfW.png"
                       alt="Coffee being poured into a cup"
                       width={600}
                       height={600}
@@ -488,7 +520,7 @@ export default function Home() {
 
                   <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-xl overflow-hidden shadow-lg border-4 border-white">
                     <Image
-                      src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9JxYjZkZfRTHjrxkiMowyACG38gcCY.png"
                       alt="Coffee shop interior"
                       width={160}
                       height={160}
@@ -512,7 +544,7 @@ export default function Home() {
                 <div className="space-y-5 text-stone-700">
                   {[
                     <p key="1" className="leading-relaxed">
-                      <span className="font-serif italic">Umber</span> pays tribute to an infinite and evolving coffee
+                      <span className="font-serif italic">aroma</span> pays tribute to an infinite and evolving coffee
                       culture served in unique atmosphere along with fresh food options.
                     </p>,
                     <p key="2" className="leading-relaxed">
@@ -531,13 +563,11 @@ export default function Home() {
                 </div>
 
                 <FadeInView delay={0.6}>
-                <div className="pt-4">
-  <Link href="/about" passHref>
-    <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8">
-      Our Story
-    </Button>
-  </Link>
-</div>
+                  <div className="pt-4">
+                    <Link href="/about">
+                      <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8">Our Story</Button>
+                    </Link>
+                  </div>
                 </FadeInView>
               </div>
             </div>
@@ -561,77 +591,81 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  category: "Espresso",
-                  image:
-                    "https://w0.peakpx.com/wallpaper/710/992/HD-wallpaper-espresso-thumbnail.jpg",
-                  items: [
-                    { name: "Espresso", price: "$3.50" },
-                    { name: "Americano", price: "$4.00" },
-                    { name: "Cappuccino", price: "$4.50" },
-                    { name: "Latte", price: "$5.00" },
-                  ],
-                },
-                {
-                  category: "Brew Bar",
-                  image:
-                    "https://www.shutterstock.com/image-photo/cold-glasses-beer-bar-600nw-2173861113.jpg",
-                  items: [
-                    { name: "Pour Over", price: "$5.50" },
-                    { name: "Chemex", price: "$6.00" },
-                    { name: "Aeropress", price: "$5.00" },
-                    { name: "Cold Brew", price: "$5.50" },
-                  ],
-                },
-                {
-                  category: "Food",
-                  image:
-                    "https://images.lifestyleasia.com/wp-content/uploads/sites/7/2023/03/21105629/neighbourhood-guide-best-restaurants-cafes-river-valley-singapore-thong-aik-cafe-coffee-brunch-tiong-bahru-cafe-foothills-1.jpeg",
-                  items: [
-                    { name: "Avocado Toast", price: "$9.00" },
-                    { name: "Breakfast Bowl", price: "$12.00" },
-                    { name: "Croissant", price: "$4.50" },
-                    { name: "Vegan Wrap", price: "$11.00" },
-                  ],
-                },
-              ].map((category, i) => (
-                <FadeInView key={i} delay={0.2 * i} className="group">
-                  <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        src={category.image || "/placeholder.svg"}
-                        alt={category.category}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                      <div className="absolute bottom-0 left-0 p-6 text-white">
-                        <h3 className="text-xl font-serif">{category.category}</h3>
-                      </div>
-                    </div>
-
+              {isLoading ? (
+                // Loading skeleton
+                [...Array(3)].map((_, i) => (
+                  <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm h-full flex flex-col animate-pulse">
+                    <div className="relative h-48 bg-neutral-200"></div>
                     <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex-1 space-y-3">
-                        {category.items.map((item, j) => (
-                          <div key={j} className="flex justify-between items-center text-stone-700">
-                            <span>{item.name}</span>
-                            <span className="text-amber-700 font-medium">{item.price}</span>
+                      <div className="h-6 bg-neutral-200 rounded w-1/3 mb-4"></div>
+                      <div className="space-y-2 flex-1">
+                        {[...Array(4)].map((_, j) => (
+                          <div key={j} className="flex justify-between">
+                            <div className="h-4 bg-neutral-200 rounded w-1/2"></div>
+                            <div className="h-4 bg-neutral-200 rounded w-1/6"></div>
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
-                </FadeInView>
-              ))}
+                ))
+              ) : featuredMenuItems.length > 0 ? (
+                // Group menu items by category
+                (() => {
+                  const categories: Record<string, any[]> = {};
+                  
+                  featuredMenuItems.forEach((item: any) => {
+                    if (!categories[item.category]) {
+                      categories[item.category] = [];
+                    }
+                    categories[item.category].push(item);
+                  });
+                  
+                  return Object.entries(categories).map(([category, items], i) => (
+                    <FadeInView key={category} delay={0.2 * i} className="group">
+                      <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
+                        <div className="relative h-48 overflow-hidden">
+                          <Image
+                            src={items[0]?.image || "/placeholder.svg"}
+                            alt={category}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                          <div className="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 className="text-xl font-serif">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                          </div>
+                        </div>
+
+                        <div className="p-6 flex-1 flex flex-col">
+                          <div className="flex-1 space-y-3">
+                            {items.slice(0, 4).map((item: any) => (
+                              <div key={item.id} className="flex justify-between items-center text-stone-700">
+                                <span>{item.name}</span>
+                                <span className="text-amber-700 font-medium">{item.priceRange}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </FadeInView>
+                  ));
+                })()
+              ) : (
+                <div className="col-span-3 text-center py-12">
+                  <p className="text-neutral-500">No menu items found. Please check back later.</p>
+                </div>
+              )}
             </div>
 
             <FadeInView delay={0.6} className="mt-12 text-center">
-              <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8 py-6">
-                View Full Menu
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link href="/menu">
+                <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8 py-6">
+                  View Full Menu
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </FadeInView>
           </div>
         </section>
@@ -662,19 +696,15 @@ export default function Home() {
                 </FadeInView>
 
                 <div className="space-y-3 mb-10">
-                  {[
-                    { label: "Manhattan (Tribeca):", phone: "212.431.5200" },
-                    { label: "Jersey City:", phone: "201.431.1233" },
-                    { label: "Weehawken:", phone: "201.389.4025" },
-                  ].map((item, i) => (
-                    <FadeInView key={i} delay={0.4 + i * 0.1} className="flex items-center">
+                  {featuredLocations.slice(0, 3).map((location: any, i) => (
+                    <FadeInView key={location.id} delay={0.4 + i * 0.1} className="flex items-center">
                       <Phone className="h-4 w-4 mr-3 text-amber-700" aria-hidden="true" />
-                      <span className="font-medium text-stone-700">{item.label}</span>{" "}
+                      <span className="font-medium text-stone-700">{location.name}:</span>{" "}
                       <a
-                        href={`tel:${item.phone.replace(/\D/g, "")}`}
+                        href={`tel:${location.phone.replace(/\D/g, "")}`}
                         className="ml-1 hover:text-amber-700 transition-colors"
                       >
-                        {item.phone}
+                        {location.phone}
                       </a>
                     </FadeInView>
                   ))}
@@ -701,7 +731,7 @@ export default function Home() {
                 <FadeInView delay={0.7}>
                   <div className="relative h-64 md:h-80 rounded-xl overflow-hidden shadow-lg">
                     <Image
-                      src="https://brewsouth.com/media/athlete2/default/header-contact-min.jpg"
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Eub7NeqNEpaYUYJLt36LbRur2WzVuU.png"
                       alt="Coffee beans being roasted"
                       fill
                       className="object-cover"
@@ -795,58 +825,52 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Newsletter Section */}
         <section
-  className="py-20 bg-gradient-to-br from-amber-800 via-amber-900 to-amber-800 text-white relative overflow-hidden"
-  aria-labelledby="newsletter-heading"
->
-  {/* Background visual effects */}
-  <div className="absolute inset-0 bg-[url('/placeholder.svg?height=200&width=200')] opacity-5" />
-  <div className="absolute -top-24 -left-24 w-64 h-64 bg-amber-700 rounded-full opacity-30 blur-3xl" />
-  <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-600 rounded-full opacity-20 blur-3xl" />
+          className="py-16 bg-gradient-to-r from-amber-800 to-amber-900 text-white relative overflow-hidden"
+          aria-labelledby="newsletter-heading"
+        >
+          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=200&width=200')] opacity-5" />
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-amber-700 rounded-full opacity-30 blur-3xl" />
+          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-600 rounded-full opacity-20 blur-3xl" />
 
-  <motion.div
-    className="container mx-auto px-4 md:px-8 text-center relative z-10"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8 }}
-  >
-    <BlurredTextReveal>
-      <h2 id="newsletter-heading" className="text-3xl md:text-4xl font-serif font-semibold mb-8 tracking-tight">
-        Join our mailing list
-      </h2>
-    </BlurredTextReveal>
+          <motion.div
+            className="container mx-auto px-4 md:px-8 text-center relative z-10"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <BlurredTextReveal>
+              <h2 id="newsletter-heading" className="text-2xl font-serif mb-6">
+                Join our mailing list
+              </h2>
+            </BlurredTextReveal>
 
-    <motion.form
-      onSubmit={(e) => e.preventDefault()}
-      className="flex flex-col sm:flex-row items-center max-w-xl mx-auto gap-4"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-    >
-      <label htmlFor="email-newsletter" className="sr-only">
-        Email address
-      </label>
-
-      <input
-        id="email-newsletter"
-        type="email"
-        required
-        placeholder="Enter your email here*"
-        className="flex-1 w-full py-3 px-5 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition"
-      />
-
-      <Button
-        type="submit"
-        className="bg-white text-amber-900 hover:bg-amber-100 transition px-6 py-3 rounded-full font-semibold"
-      >
-        Subscribe
-      </Button>
-    </motion.form>
-  </motion.div>
-</section>
-
+            <motion.form
+              className="flex max-w-md mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <label htmlFor="email-newsletter" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="email-newsletter"
+                type="email"
+                placeholder="Enter your email here*"
+                className="flex-1 py-3 px-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-l-full focus:outline-none text-white placeholder:text-white/70"
+                aria-required="true"
+              />
+              <Button type="submit" className="bg-white text-amber-900 hover:bg-amber-50 rounded-r-full">
+                Subscribe
+              </Button>
+            </motion.form>
+          </motion.div>
+        </section>
       </main>
 
       <footer className="bg-white py-16 border-t border-stone-100 relative overflow-hidden" role="contentinfo">
@@ -858,9 +882,9 @@ export default function Home() {
               <Link
                 href="/"
                 className="text-2xl font-serif tracking-wide text-stone-800 mb-4 inline-block"
-                aria-label="Umber Coffee Home"
+                aria-label="Aroma Coffee Home"
               >
-                Umber
+                aroma
               </Link>
               <p className="text-stone-600 mt-4 mb-6">
                 Crafting exceptional coffee experiences since 2015. A tribute to coffee culture and community.
@@ -913,8 +937,8 @@ export default function Home() {
                 </p>
                 <p className="flex items-center text-stone-600">
                   <Mail className="h-4 w-4 mr-2 text-amber-700" aria-hidden="true" />
-                  <a href="mailto:info@Umber.coffee" className="hover:text-amber-700 transition-colors">
-                    info@Umber.coffee
+                  <a href="mailto:info@aroma.coffee" className="hover:text-amber-700 transition-colors">
+                    info@aroma.coffee
                   </a>
                 </p>
               </div>
@@ -934,7 +958,7 @@ export default function Home() {
                 </motion.div>
               ))}
             </nav>
-            <p>© {new Date().getFullYear()} by Umber Coffee</p>
+            <p>© {new Date().getFullYear()} by Aroma Coffee</p>
           </div>
         </div>
       </footer>
