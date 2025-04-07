@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Mail, Facebook, Instagram, ArrowRight, Menu, X, Search, ShoppingBag } from 'lucide-react'
+import { MapPin, Phone, Mail, Facebook, Instagram, ArrowRight, Menu, X, Coffee } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import api from "@/lib/api"
@@ -108,20 +108,7 @@ export default function Home() {
     fetchData()
   }, [])
 
-  const carouselImages = [
-    {
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9JxYjZkZfRTHjrxkiMowyACG38gcCY.png",
-      alt: "Coffee shop interior with baristas and coffee equipment",
-    },
-    {
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7GoBwhD5SnEtEvnqBsi9Q2qWMo8rfW.png",
-      alt: "Coffee being poured into a cup",
-    },
-    {
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Eub7NeqNEpaYUYJLt36LbRur2WzVuU.png",
-      alt: "Coffee beans being roasted",
-    },
-  ]
+
 
   const navItems = [
     { name: "About", href: "/about" },
@@ -187,6 +174,7 @@ export default function Home() {
               </motion.nav>
 
               <div className="flex items-center space-x-5">
+                <Link href="#locations">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400 }}
@@ -195,9 +183,10 @@ export default function Home() {
                   }`}
                   aria-label="Search"
                 >
-                  <Search className="h-[18px] w-[18px]" />
+                  <MapPin className="h-[18px] w-[18px]" />
                 </motion.button>
-
+                </Link>
+                <Link href="#menu">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400 }}
@@ -206,8 +195,12 @@ export default function Home() {
                   }`}
                   aria-label="Shopping bag"
                 >
-                  <ShoppingBag className="h-[18px] w-[18px]" />
+                  <Coffee className="h-[18px] w-[18px]" />
                 </motion.button>
+                </Link>
+
+
+                <Link href="#contact">
 
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -232,6 +225,7 @@ export default function Home() {
                     </motion.span>
                   </Button>
                 </motion.div>
+                </Link>
               </div>
             </div>
 
@@ -243,7 +237,7 @@ export default function Home() {
                 className={`p-2 rounded-full ${scrollY > 50 ? "text-stone-700" : "text-white"}`}
                 aria-label="Shopping bag"
               >
-                <ShoppingBag className="h-5 w-5" />
+                <Coffee className="h-5 w-5" />
               </motion.button>
 
               <motion.button
@@ -338,7 +332,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Eub7NeqNEpaYUYJLt36LbRur2WzVuU.png"
+              src="https://wallpapercat.com/w/full/4/1/3/593669-3840x2160-desktop-4k-coffee-beans-wallpaper.jpg"
               alt="Coffee beans being roasted"
               fill
               className="object-cover"
@@ -407,7 +401,7 @@ export default function Home() {
                   </section>
 
         {/* Locations Section */}
-        <section className="py-24 bg-white relative" aria-labelledby="locations-heading">
+        <section className="py-24 bg-white relative" aria-labelledby="locations-heading" id="locations">
           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-stone-50 to-transparent" />
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -575,7 +569,7 @@ export default function Home() {
         </section>
 
         {/* Menu Preview Section */}
-        <section className="py-24 bg-white relative overflow-hidden" aria-labelledby="menu-heading">
+        <section className="py-24 bg-white relative overflow-hidden" aria-labelledby="menu-heading" id="menu">
           <div className="absolute -top-40 -left-40 w-80 h-80 bg-amber-50 rounded-full opacity-70 blur-3xl" />
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -671,7 +665,7 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section className="py-24 bg-stone-50 relative overflow-hidden" aria-labelledby="contact-heading">
+        <section className="py-24 bg-stone-50 relative overflow-hidden" aria-labelledby="contact-heading" id="contact">
           <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-amber-100 rounded-full opacity-40 blur-3xl" />
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -825,53 +819,76 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Newsletter Section */}
-        <section
-          className="py-16 bg-gradient-to-r from-amber-800 to-amber-900 text-white relative overflow-hidden"
-          aria-labelledby="newsletter-heading"
-        >
-          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=200&width=200')] opacity-5" />
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-amber-700 rounded-full opacity-30 blur-3xl" />
-          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-600 rounded-full opacity-20 blur-3xl" />
+   {/* Newsletter Section */}
+<section
+  className="relative overflow-hidden bg-gradient-to-br from-amber-800 via-amber-900 to-amber-950 py-20 text-white"
+  aria-labelledby="newsletter-heading"
+>
+  {/* Decorative Background Elements */}
+  <div className="absolute inset-0 bg-[url('/placeholder.svg?height=200&width=200')] opacity-5" />
+  <div className="absolute -top-24 -left-24 w-64 h-64 bg-amber-700 rounded-full opacity-20 blur-3xl" />
+  <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-600 rounded-full opacity-30 blur-3xl" />
+  <div className="absolute top-1/2 left-1/2 w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2 bg-amber-500 opacity-10 blur-[120px] pointer-events-none" />
 
-          <motion.div
-            className="container mx-auto px-4 md:px-8 text-center relative z-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <BlurredTextReveal>
-              <h2 id="newsletter-heading" className="text-2xl font-serif mb-6">
-                Join our mailing list
-              </h2>
-            </BlurredTextReveal>
+  {/* Content */}
+  <motion.div
+    className="relative z-10 container mx-auto px-4 md:px-8 text-center"
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
+  >
+    <BlurredTextReveal>
+      <h2
+        id="newsletter-heading"
+        className="text-4xl md:text-5xl font-serif mb-6 leading-snug tracking-tight"
+      >
+        Never miss an update
+      </h2>
+    </BlurredTextReveal>
 
-            <motion.form
-              className="flex max-w-md mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <label htmlFor="email-newsletter" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-newsletter"
-                type="email"
-                placeholder="Enter your email here*"
-                className="flex-1 py-3 px-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-l-full focus:outline-none text-white placeholder:text-white/70"
-                aria-required="true"
-              />
-              <Button type="submit" className="bg-white text-amber-900 hover:bg-amber-50 rounded-r-full">
-                Subscribe
-              </Button>
-            </motion.form>
-          </motion.div>
-        </section>
-      </main>
+    <p className="max-w-2xl mx-auto text-white/80 mb-8 text-base md:text-lg">
+      Get exclusive updates, early access, and special offers straight to your inbox.
+    </p>
+
+    <motion.form
+      className="flex flex-col sm:flex-row max-w-lg mx-auto gap-4"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <div className="flex-1">
+        <label htmlFor="email-newsletter" className="sr-only">
+          Email address
+        </label>
+        <input
+          id="email-newsletter"
+          type="email"
+          required
+          placeholder="Your email address"
+          className="w-full py-3 px-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full sm:rounded-r-none sm:rounded-l-full focus:outline-none focus:ring-2 focus:ring-amber-300 text-white placeholder:text-white/70 transition-all duration-200"
+        />
+      </div>
+      <Button
+        type="submit"
+        className="px-8 py-4 bg-white text-amber-900 hover:bg-amber-100 rounded-full sm:rounded-l-none sm:rounded-r-full font-semibold transition-all duration-200 shadow-md"
+      >
+        Subscribe
+      </Button>
+    </motion.form>
+
+    <p className="mt-4 text-sm text-white/70">
+      *You can unsubscribe anytime. Read our{" "}
+      <a href="/privacy-policy" className="underline hover:text-white">
+        Privacy Policy
+      </a>
+      .
+    </p>
+  </motion.div>
+</section>
+  </main>
 
       <footer className="bg-white py-16 border-t border-stone-100 relative overflow-hidden" role="contentinfo">
         <div className="absolute -top-24 right-0 w-64 h-64 bg-amber-50 rounded-full opacity-30 blur-3xl" />
