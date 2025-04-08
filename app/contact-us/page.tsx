@@ -1,10 +1,50 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 import { MapPin, Phone, Mail, Facebook, Instagram, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  })
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState("")
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setSuccess(false)
+    setError("")
+
+    try {
+      const response = await fetch("https://backendcoffee.onrender.com/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) throw new Error("Something went wrong")
+
+      setSuccess(true)
+      setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" })
+    } catch (err: any) {
+      setError(err.message || "Failed to submit the form.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-12">
@@ -86,74 +126,41 @@ export default function ContactPage() {
             </div>
           </div>
 
+          {/* RIGHT SIDE - Form */}
           <div>
             <h2 className="text-2xl font-serif mb-6">Send your message and we will get back to you:</h2>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="firstName" className="sr-only">
-                    First Name
-                  </label>
-                  <input
-                    id="firstName"
-                    type="text"
-                    placeholder="First Name"
-                    className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="lastName" className="sr-only">
-                    Last Name
-                  </label>
-                  <input
-                    id="lastName"
-                    type="text"
-                    placeholder="Last Name"
-                    className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800"
-                  />
-                </div>
+                <input id="firstName" type="text" placeholder="First Name" value={formData.firstName} onChange={handleChange}
+                  className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800" />
+                <input id="lastName" type="text" placeholder="Last Name" value={formData.lastName} onChange={handleChange}
+                  className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="email" className="sr-only">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                    className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="phone" className="sr-only">
-                    Phone
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    placeholder="Phone"
-                    className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800"
-                  />
-                </div>
+                <input id="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange}
+                  className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800" />
+                <input id="phone" type="tel" placeholder="Phone" value={formData.phone} onChange={handleChange}
+                  className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800" />
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="message" className="sr-only">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  placeholder="Type your message here..."
-                  rows={5}
-                  className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800"
-                ></textarea>
-              </div>
+              <textarea
+                id="message"
+                placeholder="Type your message here..."
+                rows={5}
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full border-b border-neutral-300 py-2 focus:outline-none focus:border-amber-800"
+              ></textarea>
 
               <div className="text-center">
-                <Button className="bg-amber-800 hover:bg-amber-900 text-white px-8">Submit</Button>
+                <Button className="bg-amber-800 hover:bg-amber-900 text-white px-8" type="submit" disabled={loading}>
+                  {loading ? "Sending..." : "Submit"}
+                </Button>
               </div>
+
+              {success && <p className="text-green-600 text-center">Thank you! We'll get back to you soon.</p>}
+              {error && <p className="text-red-600 text-center">{error}</p>}
             </form>
 
             <div className="mt-8 relative h-64">

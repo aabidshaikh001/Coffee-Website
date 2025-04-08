@@ -101,7 +101,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </li>
             <li>
               <Link 
-                href="#" 
+                href="/admin/leads" 
                 className="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-md"
               >
                 <Users className="h-5 w-5 text-neutral-500" />

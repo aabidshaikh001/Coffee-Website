@@ -71,7 +71,56 @@ export default function Home() {
   const [featuredLocations, setFeaturedLocations] = useState([])
   const [featuredMenuItems, setFeaturedMenuItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: ""
+  })
 
+  const [loading, setLoading] = useState(false)
+  const [responseMsg, setResponseMsg] = useState("")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setResponseMsg("")
+
+    try {
+      const res = await fetch("https://backendcoffee.onrender.com/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await res.json()
+
+      if (res.ok) {
+        setResponseMsg("Message sent successfully!")
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: ""
+        })
+      } else {
+        setResponseMsg(data.message || "Something went wrong.")
+      }
+    } catch (error) {
+      console.error(error)
+      setResponseMsg("Server error. Please try again later.")
+    } finally {
+      setLoading(false)
+    }
+  }
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
@@ -742,78 +791,76 @@ export default function Home() {
                     Send your message and we will get back to you:
                   </h3>
 
-                  <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label htmlFor="firstName" className="text-sm text-stone-600">
-                          First Name
-                        </label>
-                        <input
-                          id="firstName"
-                          type="text"
-                          className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-                          aria-required="true"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="lastName" className="text-sm text-stone-600">
-                          Last Name
-                        </label>
-                        <input
-                          id="lastName"
-                          type="text"
-                          className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-                          aria-required="true"
-                        />
-                      </div>
-                    </div>
+                  <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label htmlFor="firstName" className="text-sm text-stone-600">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            value={formData.firstName}
+            onChange={handleChange}
+            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="lastName" className="text-sm text-stone-600">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            value={formData.lastName}
+            onChange={handleChange}
+            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
+            required
+          />
+        </div>
+      </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm text-stone-600">
-                          Email
-                        </label>
-                        <input
-                          id="email"
-                          type="email"
-                          className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-                          aria-required="true"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="phone" className="text-sm text-stone-600">
-                          Phone
-                        </label>
-                        <input
-                          id="phone"
-                          type="tel"
-                          className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-                        />
-                      </div>
-                    </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label htmlFor="email" className="text-sm text-stone-600">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="phone" className="text-sm text-stone-600">Phone</label>
+          <input
+            id="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
+          />
+        </div>
+      </div>
 
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm text-stone-600">
-                        Message
-                      </label>
-                      <textarea
-                        id="message"
-                        rows={5}
-                        className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-                        aria-required="true"
-                      ></textarea>
-                    </div>
+      <div className="space-y-2">
+        <label htmlFor="message" className="text-sm text-stone-600">Message</label>
+        <textarea
+          id="message"
+          rows={5}
+          value={formData.message}
+          onChange={handleChange}
+          className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
+          required
+        />
+      </div>
 
-                    <div className="text-center">
-                      <Button
-                        type="submit"
-                        className="bg-amber-700 hover:bg-amber-800 text-white px-8 rounded-full shadow-md"
-                      >
-                        Submit
-                      </Button>
+      <div className="text-center">
+        <Button type="submit" className="bg-amber-700 hover:bg-amber-800 text-white px-8 rounded-full shadow-md" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </Button>
+        {responseMsg && <p className="mt-4 text-sm text-stone-700">{responseMsg}</p>}
+      </div>
+    </form>
                     </div>
-                  </form>
-                </div>
               </FadeInView>
             </div>
           </div>
