@@ -25,7 +25,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <aside className="w-64 bg-white border-r border-neutral-200 hidden md:flex flex-col h-screen sticky top-0">
         <div className="p-6 border-b border-neutral-200">
           <Link href="/admin" className="text-xl font-serif text-amber-800">
-            aroma <span className="text-neutral-500 text-sm font-sans">admin</span>
+            umber <span className="text-neutral-500 text-sm font-sans">admin</span>
           </Link>
         </div>
         
@@ -141,7 +141,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <header className="bg-white border-b border-neutral-200 py-4 px-6 md:hidden sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <Link href="/admin" className="text-xl font-serif text-amber-800">
-              aroma <span className="text-neutral-500 text-sm font-sans">admin</span>
+              umber <span className="text-neutral-500 text-sm font-sans">admin</span>
             </Link>
             <button className="p-2 rounded-md hover:bg-neutral-100">
               <MenuIcon className="h-6 w-6 text-neutral-700" />

@@ -18,7 +18,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
             <div>
               <p className="text-neutral-700 mb-4">
-                Founded in 2015, <span className="font-serif italic">aroma</span> began with a simple mission: to create
+                Founded in 2015, <span className="font-serif italic">umber</span> began with a simple mission: to create
                 a space where coffee is celebrated as an art form and where community thrives.
               </p>
               <p className="text-neutral-700 mb-4">
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
           <h2 className="text-2xl font-serif mb-6">Our Spaces</h2>
           <p className="text-neutral-700 mb-4">
-            Each <span className="font-serif italic">aroma</span> location has its own unique character while
+            Each <span className="font-serif italic">umber</span> location has its own unique character while
             maintaining our signature aesthetic: warm, inviting spaces with thoughtful design elements that encourage
             both conversation and contemplation.
           </p>
@@ -74,7 +74,7 @@ export default function AboutPage() {
           </p>
 
           <div className="text-center text-neutral-700 italic border-t border-b py-8 my-8">
-            "At <span className="font-serif">aroma</span>, we are simply passionate about the good things that life has
+            "At <span className="font-serif">umber</span>, we are simply passionate about the good things that life has
             to offer."
           </div>
 

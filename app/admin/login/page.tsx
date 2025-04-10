@@ -64,7 +64,7 @@ export default function AdminLogin() {
           </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-serif text-neutral-900">
-          aroma <span className="text-neutral-500 text-lg font-sans">admin</span>
+          umber <span className="text-neutral-500 text-lg font-sans">admin</span>
         </h2>
         <p className="mt-2 text-center text-sm text-neutral-600">Sign in to access the admin dashboard</p>
       </div>
@@ -155,7 +155,7 @@ export default function AdminLogin() {
 
             <div className="mt-4 bg-neutral-50 p-3 rounded-md text-sm text-neutral-700">
               <p>
-                <strong>Email:</strong> admin@aroma.coffee
+                <strong>Email:</strong> admin@umber.coffee
               </p>
               <p>
                 <strong>Password:</strong> password

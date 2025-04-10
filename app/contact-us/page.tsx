@@ -64,7 +64,7 @@ export default function ContactPage() {
             <h2 className="text-2xl font-serif mb-6">Visit:</h2>
             <div className="space-y-6 mb-8">
               <div>
-                <h3 className="text-xl mb-2 font-medium">Aroma Downtown (Manhattan)</h3>
+                <h3 className="text-xl mb-2 font-medium">umber Downtown (Manhattan)</h3>
                 <p className="flex items-start">
                   <MapPin className="h-4 w-4 mr-2 text-amber-800 flex-shrink-0 mt-1" />
                   <span>130 Franklin St. New York, NY 10013</span>
@@ -74,7 +74,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-xl mb-2 font-medium">Aroma Express (Jersey City)</h3>
+                <h3 className="text-xl mb-2 font-medium">umber Express (Jersey City)</h3>
                 <p className="flex items-start">
                   <MapPin className="h-4 w-4 mr-2 text-amber-800 flex-shrink-0 mt-1" />
                   <span>198 Van Vorst St. Jersey City, NJ 07302</span>
@@ -85,7 +85,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-xl mb-2 font-medium">Aroma Uptown (Weehawken)</h3>
+                <h3 className="text-xl mb-2 font-medium">umber Uptown (Weehawken)</h3>
                 <p className="flex items-start">
                   <MapPin className="h-4 w-4 mr-2 text-amber-800 flex-shrink-0 mt-1" />
                   <span>2812 Palisade Ave Weehawken NJ 07086</span>
@@ -120,7 +120,7 @@ export default function ContactPage() {
               <a href="#" className="text-neutral-800 hover:text-amber-800">
                 <Instagram className="h-6 w-6" />
               </a>
-              <a href="mailto:info@aroma.coffee" className="text-neutral-800 hover:text-amber-800">
+              <a href="mailto:info@umber.coffee" className="text-neutral-800 hover:text-amber-800">
                 <Mail className="h-6 w-6" />
               </a>
             </div>

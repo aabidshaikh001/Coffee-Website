@@ -183,8 +183,8 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="flex items-center space-x-6"
             >
-              <Link href="/" className="text-3xl font-serif tracking-wide relative" aria-label="Aroma Coffee Home">
-                <span className={`relative z-10 ${scrollY > 50 ? "text-stone-800" : "text-white"}`}>aroma</span>
+              <Link href="/" className="text-3xl font-serif tracking-wide relative" aria-label="umber Coffee Home">
+                <span className={`relative z-10 ${scrollY > 50 ? "text-stone-800" : "text-white"}`}>umber</span>
                 <motion.span
                   className="absolute -bottom-1 left-0 h-[2px] bg-amber-700/60 w-full -z-10"
                   initial={{ width: 0 }}
@@ -320,8 +320,8 @@ export default function Home() {
             aria-label="Mobile navigation menu"
           >
             <div className="flex justify-between items-center p-6">
-              <Link href="/" className="text-3xl font-serif tracking-wide text-white" aria-label="Aroma Coffee Home">
-                aroma
+              <Link href="/" className="text-3xl font-serif tracking-wide text-white" aria-label="umber Coffee Home">
+                umber
               </Link>
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -367,7 +367,7 @@ export default function Home() {
             </motion.nav>
 
             <div className="p-6 text-white/60 text-center text-sm">
-              <p>© {new Date().getFullYear()} by Aroma Coffee</p>
+              <p>© {new Date().getFullYear()} by umber Coffee</p>
             </div>
           </motion.div>
         )}
@@ -587,7 +587,7 @@ export default function Home() {
                 <div className="space-y-5 text-stone-700">
                   {[
                     <p key="1" className="leading-relaxed">
-                      <span className="font-serif italic">aroma</span> pays tribute to an infinite and evolving coffee
+                      <span className="font-serif italic">umber</span> pays tribute to an infinite and evolving coffee
                       culture served in unique atmosphere along with fresh food options.
                     </p>,
                     <p key="2" className="leading-relaxed">
@@ -946,9 +946,9 @@ export default function Home() {
               <Link
                 href="/"
                 className="text-2xl font-serif tracking-wide text-stone-800 mb-4 inline-block"
-                aria-label="Aroma Coffee Home"
+                aria-label="umber Coffee Home"
               >
-                aroma
+                umber
               </Link>
               <p className="text-stone-600 mt-4 mb-6">
                 Crafting exceptional coffee experiences since 2015. A tribute to coffee culture and community.
@@ -1001,8 +1001,8 @@ export default function Home() {
                 </p>
                 <p className="flex items-center text-stone-600">
                   <Mail className="h-4 w-4 mr-2 text-amber-700" aria-hidden="true" />
-                  <a href="mailto:info@aroma.coffee" className="hover:text-amber-700 transition-colors">
-                    info@aroma.coffee
+                  <a href="mailto:info@umber.coffee" className="hover:text-amber-700 transition-colors">
+                    info@umber.coffee
                   </a>
                 </p>
               </div>
@@ -1022,7 +1022,7 @@ export default function Home() {
                 </motion.div>
               ))}
             </nav>
-            <p>© {new Date().getFullYear()} by Aroma Coffee</p>
+            <p>© {new Date().getFullYear()} by umber Coffee</p>
           </div>
         </div>
       </footer>

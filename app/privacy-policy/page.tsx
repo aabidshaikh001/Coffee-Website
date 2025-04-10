@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="text-2xl font-serif mb-6">Introduction</h2>
           <p className="text-neutral-700 mb-4">
-            At <span className="font-serif italic">aroma</span>, we respect your privacy and are committed to protecting
+            At <span className="font-serif italic">umber</span>, we respect your privacy and are committed to protecting
             your personal data. This privacy policy will inform you about how we look after your personal data when you
             visit our website and tell you about your privacy rights and how the law protects you.
           </p>
@@ -99,13 +99,13 @@ export default function PrivacyPolicyPage() {
             If you have any questions about this Privacy Policy, please contact us:
           </p>
           <div className="text-neutral-700 mb-8">
-            <p>By email: privacy@aroma.com</p>
+            <p>By email: privacy@umber.com</p>
             <p>By phone: (555) 123-4567</p>
             <p>By mail: 123 Coffee Street, New York, NY 10001</p>
           </div>
 
           <div className="text-center text-neutral-700 italic border-t border-b py-8 my-8">
-            "At <span className="font-serif">aroma</span>, we value your privacy as much as we value the quality of our
+            "At <span className="font-serif">umber</span>, we value your privacy as much as we value the quality of our
             coffee."
           </div>
         </div>
