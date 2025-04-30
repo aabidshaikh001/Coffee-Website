@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Facebook, Instagram, ArrowLeft } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header";
 
 interface Location {
   _id: string;
@@ -86,12 +86,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-
+      <Header/>
+      <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
+        
         <h1 className="text-4xl font-serif mb-12 text-center">Contact Us</h1>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">

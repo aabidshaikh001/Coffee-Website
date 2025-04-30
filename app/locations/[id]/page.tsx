@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Clock, Phone, Mail, ExternalLink, Navigation, Loader2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import { Header } from "@/components/header"
 
 export default function LocationPage({ params }: { params: { id: string } }) {
   const [location, setLocation] = useState<any>(null)
@@ -60,7 +61,8 @@ export default function LocationPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12">
+      <Header/>
+      <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
         <Link href="/locations" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Locations

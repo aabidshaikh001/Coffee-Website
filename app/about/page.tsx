@@ -1,18 +1,15 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+
+import { Header } from "@/components/header"
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-
+      <Header/>
+      <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
+        
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-serif mb-8 text-center">About Us</h1>
 

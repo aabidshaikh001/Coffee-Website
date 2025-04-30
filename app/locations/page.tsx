@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { MapPin, ArrowLeft, Clock, Navigation, Loader2 } from "lucide-react"
+import { MapPin,  Clock, Navigation, Loader2 } from "lucide-react"
+import { Header } from "@/components/header"
 
 // Backend API URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-production.up.railway.app/api"
@@ -51,6 +52,7 @@ export default function LocationsPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
+     
         <div className="text-center max-w-md mx-auto px-4">
           <div className="text-red-500 mb-4">
             <svg
@@ -83,12 +85,9 @@ export default function LocationsPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-
+         <Header />
+         <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
+        
         <h1 className="text-4xl font-serif mb-12 text-center">Our Locations</h1>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
