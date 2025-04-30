@@ -140,7 +140,7 @@ export default function ContactPage() {
               <a href="#" className="text-neutral-800 hover:text-amber-800">
                 <Facebook className="h-6 w-6" />
               </a>
-              <a href="#" className="text-neutral-800 hover:text-amber-800">
+              <a href="https://www.instagram.com/helloumbercoffee/" className="text-neutral-800 hover:text-amber-800">
                 <Instagram className="h-6 w-6" />
               </a>
               {locations[0]?.email && (

@@ -85,12 +85,12 @@ export const Footer = () => {
               Every cup tells a story—earthy, rich, and unapologetically honest.              </p>
               <div className="flex space-x-4">
                 {[
-                  { Icon: Facebook, label: "Facebook" },
-                  { Icon: Instagram, label: "Instagram" },
+                
+                  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/helloumbercoffee/" },
                 ].map((item, i) => (
                   <motion.a
                     key={i}
-                    href="#"
+                    href={item.href || "#"}
                     className="text-stone-600 hover:text-amber-700 transition-colors"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
