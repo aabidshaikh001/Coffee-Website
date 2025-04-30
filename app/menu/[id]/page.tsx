@@ -126,7 +126,7 @@ const ShareModal = ({
 }
 
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-production.up.railway.app/api"
 
 export default function MenuItemPage() {
   const params = useParams()
@@ -145,7 +145,7 @@ export default function MenuItemPage() {
         setIsLoading(true)
 
         // Fetch product details
-        const response = await fetch(`http://localhost:5000/api/menu/${id}`)
+        const response = await fetch(`https://backendcoffee-production.up.railway.app/api/menu/${id}`)
 
         if (!response.ok) {
           throw new Error("Failed to fetch product details")
@@ -157,7 +157,7 @@ export default function MenuItemPage() {
         // Fetch related products if available
         if (data.relatedProducts && data.relatedProducts.length > 0) {
           const relatedPromises = data.relatedProducts.map((id: string) =>
-            fetch(`http://localhost:5000/api/menu/${id}`).then((res) => {
+            fetch(`https://backendcoffee-production.up.railway.app/api/menu/${id}`).then((res) => {
               if (!res.ok) throw new Error(`Failed to fetch related product: ${id}`)
               return res.json()
             }),

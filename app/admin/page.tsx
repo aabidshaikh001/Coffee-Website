@@ -19,9 +19,9 @@ export default function AdminDashboard() {
       setIsLoading(true)
       try {
         const [menuResponse, locationsResponse, usersResponse] = await Promise.all([
-          fetch("http://localhost:5000/api/menu"),
-          fetch("http://localhost:5000/api/locations"),
-          fetch("http://localhost:5000/api/leads"),
+          fetch("https://backendcoffee-production.up.railway.app/api/menu"),
+          fetch("https://backendcoffee-production.up.railway.app/api/locations"),
+          fetch("https://backendcoffee-production.up.railway.app/api/leads"),
         ])
 
         const menuData = await menuResponse.json()
@@ -52,9 +52,9 @@ export default function AdminDashboard() {
     setIsLoading(true)
     try {
       const [menuResponse, locationsResponse, usersResponse] = await Promise.all([
-        fetch("http://localhost:5000/api/menu"),
-        fetch("http://localhost:5000/api/locations"),
-        fetch("http://localhost:5000/api/leads"),
+        fetch("https://backendcoffee-production.up.railway.app/api/menu"),
+        fetch("https://backendcoffee-production.up.railway.app/api/locations"),
+        fetch("https://backendcoffee-production.up.railway.app/api/leads"),
       ])
 
       const menuData = await menuResponse.json()

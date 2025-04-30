@@ -6,7 +6,7 @@ import Image from "next/image"
 import { MapPin, ArrowLeft, Clock, Navigation, Loader2 } from "lucide-react"
 
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-production.up.railway.app/api"
 
 export default function LocationsPage() {
   const [locations, setLocations] = useState([])

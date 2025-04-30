@@ -34,7 +34,7 @@ export const Footer = () => {
     const fetchLocations = async () => {
       setIsLoading(true)
       try {
-        const res = await fetch("http://localhost:5000/api/locations")
+        const res = await fetch("https://backendcoffee-production.up.railway.app/api/locations")
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status}`)
         }
@@ -82,8 +82,7 @@ export const Footer = () => {
                 umber
               </Link>
               <p className="text-stone-600 mt-4 mb-6">
-                Crafting exceptional coffee experiences since 2015. A tribute to coffee culture and community.
-              </p>
+              Every cup tells a story—earthy, rich, and unapologetically honest.              </p>
               <div className="flex space-x-4">
                 {[
                   { Icon: Facebook, label: "Facebook" },
