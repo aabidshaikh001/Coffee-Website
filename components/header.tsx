@@ -53,7 +53,7 @@ export default function Header() {
               </nav>
 
               <div className="flex items-center space-x-5">
-                <Link href="#locations">
+                <Link href="/#locations">
                   <button
                     className="p-2 rounded-full transition-colors text-stone-600 hover:text-amber-800"
                     aria-label="Search"
@@ -61,7 +61,7 @@ export default function Header() {
                     <MapPin className="h-[18px] w-[18px]" />
                   </button>
                 </Link>
-                <Link href="#menu">
+                <Link href="/#menu">
                   <button
                     className="p-2 rounded-full transition-colors text-stone-600 hover:text-amber-800"
                     aria-label="Shopping bag"
@@ -70,7 +70,7 @@ export default function Header() {
                   </button>
                 </Link>
 
-                <Link href="#contact">
+                <Link href="/#contact">
                   <Button className="rounded-full px-6 text-sm font-medium tracking-wide transition-colors bg-amber-800 hover:bg-amber-900 text-white shadow-sm">
                     Book A Seat
                     <span className="ml-2">

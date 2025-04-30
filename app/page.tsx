@@ -224,7 +224,7 @@ export default function Home() {
               </motion.nav>
 
               <div className="flex items-center space-x-5">
-                <Link href="#locations">
+                <Link href="/#locations">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400 }}
@@ -236,7 +236,7 @@ export default function Home() {
                   <MapPin className="h-[18px] w-[18px]" />
                 </motion.button>
                 </Link>
-                <Link href="#menu">
+                <Link href="/#menu">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400 }}
@@ -250,7 +250,7 @@ export default function Home() {
                 </Link>
 
 
-                <Link href="#contact">
+                <Link href="/#contact">
 
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -360,11 +360,11 @@ export default function Home() {
                 </motion.div>
               ))}
 
-              <motion.div variants={fadeInUp} className="pt-6">
+              <motion.a href="/#contact" variants={fadeInUp} className="pt-6">
                 <Button className="bg-white text-amber-900 hover:bg-amber-50 rounded-full px-8 shadow-lg">
                   Book A Seat
                 </Button>
-              </motion.div>
+              </motion.a>
             </motion.nav>
 
             <div className="p-6 text-white/60 text-center text-sm">
