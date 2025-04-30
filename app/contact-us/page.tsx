@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Header } from "@/components/header";
+import Header from "@/components/header";
+
 
 interface Location {
   _id: string;
@@ -86,7 +87,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header/>
+          <Header/>
       <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
         
         <h1 className="text-4xl font-serif mb-12 text-center">Contact Us</h1>

@@ -5,8 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Coffee, ArrowLeft, Loader2 } from "lucide-react"
-import { Header } from "@/components/header"
-
+import Header from "@/components/header"
+   ""
 // Backend API URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-production.up.railway.app/api"
 
@@ -87,8 +87,8 @@ export default function MenuPage() {
   return (
     
     <div className="min-h-screen bg-white ">
-        <Header/>
-     
+            
+     <Header/>
         <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
         
         <h1 className="text-4xl font-serif mb-12 text-center">Our Menu</h1>

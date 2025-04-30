@@ -1,13 +1,14 @@
 "use client"
 
+import Header from "@/components/header"
 import Image from "next/image"
 
-import { Header } from "@/components/header"
-
+   ""
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header/>
+          
+          <Header/>
       <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
         
         <div className="max-w-4xl mx-auto">

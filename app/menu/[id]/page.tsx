@@ -5,8 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Coffee, Leaf, Heart, Share2, Loader2 } from "lucide-react"
 import { useParams } from "next/navigation"
-import { Header } from "@/components/header"
-
+import Header from "@/components/header"
+   ""
 // Share Modal Component
 const ShareModal = ({
   isOpen,
@@ -53,7 +53,7 @@ const ShareModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <Header/>
+          <Header/>
       <div className="bg-white rounded-lg max-w-md w-full p-6 relative">
         <button
           onClick={onClose}
