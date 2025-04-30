@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Coffee, ArrowLeft, Loader2 } from "lucide-react"
 
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee.onrender.com/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
 
 export default function MenuPage() {
   const [menuItems, setMenuItems] = useState([])
@@ -18,7 +18,7 @@ export default function MenuPage() {
     const fetchMenuItems = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`https://backendcoffee.onrender.com/api/menu`)
+        const response = await fetch(`http://localhost:5000/api/menu`)
 
         if (!response.ok) {
           throw new Error("Failed to fetch menu items")

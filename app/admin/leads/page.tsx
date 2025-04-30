@@ -17,7 +17,7 @@ import {
 } from "lucide-react"
 
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee.onrender.com/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
 
 type Lead = {
   id: string
@@ -116,7 +116,7 @@ const handleStatusChange = async (id: string, status: "new" | "contacted" | "res
   const handleDeleteLead = async (id: string) => {
     if (confirm("Are you sure you want to delete this lead?")) {
       try {
-        const res = await fetch(`https://backendcoffee.onrender.com/api/leads/${id}`, {
+        const res = await fetch(`http://localhost:5000/api/leads/${id}`, {
           method: "DELETE",
         })
 

@@ -23,7 +23,7 @@ export default function AdminLogin() {
 
     try {
       // Make direct API call to login endpoint
-      const response = await fetch(`https://backendcoffee.onrender.com/api/admin`, {
+      const response = await fetch(`http://localhost:5000/api/admin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

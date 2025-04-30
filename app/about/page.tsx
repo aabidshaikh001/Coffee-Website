@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
@@ -13,27 +14,28 @@ export default function AboutPage() {
         </Link>
 
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-serif mb-8 text-center">Our Story</h1>
+          <h1 className="text-4xl font-serif mb-8 text-center">About Us</h1>
 
           <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
             <div>
               <p className="text-neutral-700 mb-4">
-                Founded in 2015, <span className="font-serif italic">umber</span> began with a simple mission: to create
-                a space where coffee is celebrated as an art form and where community thrives.
+                At <span className="font-serif italic">Umber</span>, we believe coffee is more than just a drink—it's a
+                story, a ritual, a connection.
               </p>
               <p className="text-neutral-700 mb-4">
-                What started as a small corner café in Tribeca has grown into multiple locations across New York and New
-                Jersey, each maintaining our commitment to quality coffee and thoughtful food.
+                At <span className="font-serif italic">Umber</span> Speciality Coffee, we believe that great coffee
+                shouldn't slow you down—it should move with you. Born in the heart of Chennai,{" "}
+                <span className="font-serif italic">Umber</span> was envisioned as a simple, honest, grab-and-go coffee
+                experience for people living life in motion.
               </p>
               <p className="text-neutral-700">
-                We believe that a great café is more than just a place to grab coffee—it's a gathering space, a
-                workspace, a moment of respite in a busy day. Every detail of our spaces is designed with this
-                philosophy in mind.
+                Whether you're on your way to work, heading into a meeting, or just need a moment of calm in a packed
+                day, <span className="font-serif italic">Umber</span> is your daily ritual—made effortless.
               </p>
             </div>
             <div className="relative h-64 md:h-80">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ngMWF9svRW2qEVyMqAgVGVCwkEFYLJ.png"
+                src="/stroy.png"
                 alt="Coffee shop interior"
                 fill
                 className="object-cover rounded-lg"
@@ -41,47 +43,51 @@ export default function AboutPage() {
             </div>
           </div>
 
+          <h2 className="text-2xl font-serif mb-6">Our Journey</h2>
+          <p className="text-neutral-700 mb-4">
+            Our journey began with a single goal: to make speciality coffee more accessible. We wanted to strip away the
+            complexity and deliver clean, flavorful brews that speak for themselves.
+          </p>
+          <p className="text-neutral-700 mb-8">
+            What started as a passion for coffee quickly turned into a mission to serve brews that are not only
+            delicious but also ethically sourced, organically grown, and completely free from processed sugars.
+          </p>
+          <p className="text-neutral-700 mb-8">
+            We're not just here to serve coffee—we're here to reshape what people think good coffee can be.
+          </p>
+
           <h2 className="text-2xl font-serif mb-6">Our Coffee</h2>
           <p className="text-neutral-700 mb-4">
-            We've proudly partnered with Origin Roasters since our inception. This relationship allows us to serve
-            coffee that is not only delicious but ethically sourced and sustainably produced.
+            <span className="font-serif italic">Umber</span> coffee is bold, smooth, and deeply rooted.
           </p>
-          <p className="text-neutral-700 mb-8">
-            Our baristas are trained in the art and science of coffee preparation, constantly refining their craft to
-            bring out the best in every bean. From perfectly pulled espresso shots to meticulously prepared pour-overs,
-            we approach each cup with care and attention to detail.
-          </p>
-
-          <h2 className="text-2xl font-serif mb-6">Our Food</h2>
           <p className="text-neutral-700 mb-4">
-            Our kitchen philosophy mirrors our approach to coffee: thoughtful, seasonal, and made with quality
-            ingredients. We source locally whenever possible and create dishes that complement our coffee offerings.
+            Every cup at <span className="font-serif italic">Umber</span> is made with intention. We exclusively source
+            Arabica beans that's inspired by the bold, earthy flavors of beans grown in Coorg, Chikmagalur where
+            centuries-old farming practices meet innovative sustainability.
           </p>
-          <p className="text-neutral-700 mb-8">
-            From hearty breakfast bowls to light lunch options and house-made pastries, our menu is designed to satisfy
-            and nourish throughout the day.
-          </p>
-
-          <h2 className="text-2xl font-serif mb-6">Our Spaces</h2>
           <p className="text-neutral-700 mb-4">
-            Each <span className="font-serif italic">umber</span> location has its own unique character while
-            maintaining our signature aesthetic: warm, inviting spaces with thoughtful design elements that encourage
-            both conversation and contemplation.
+            The result? Coffee that's naturally low in acidity, rich in chocolate and spice notes, without masking them
+            with artificial flavors or unnecessary additives.
           </p>
           <p className="text-neutral-700 mb-8">
-            We believe in creating environments where people feel welcome to linger, work, meet, or simply enjoy a
-            moment alone with a great cup of coffee.
+            Our brewing methods are crafted to preserve the natural richness of the beans. We keep it simple—because
+            coffee should be simple. Whether it's a hot cappuccino or a refreshing cold brew, our menu is built to fit
+            into your life, not complicate it. No fluff, no syrupy overload—just pure, honest coffee you can grab and
+            go.
+          </p>
+          <p className="text-neutral-700 mb-8">
+            From bean to cup, we prioritize sustainability, health, and taste. That means no shortcuts, no added
+            processed sugar, and no compromise.
           </p>
 
           <div className="text-center text-neutral-700 italic border-t border-b py-8 my-8">
-            "At <span className="font-serif">umber</span>, we are simply passionate about the good things that life has
-            to offer."
+            "At <span className="font-serif">Umber</span>, we believe coffee is more than just a drink—it's a story, a
+            ritual, a connection."
           </div>
 
-          <p className="text-neutral-700 text-center">We invite you to visit us and become part of our story.</p>
+          <p className="text-neutral-700 text-center">We invite you to experience the Umber difference.</p>
         </div>
       </div>
     </div>
   )
 }
-

@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Mail, Facebook, Instagram, ArrowRight, Menu, X, Coffee } from 'lucide-react'
+import { MapPin, Phone,  Facebook, Instagram, ArrowRight, Menu, X, Coffee } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import api from "@/lib/api"
+import { Footer } from "@/components/footer"
 
 const BlurredTextReveal = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const ref = useRef(null)
@@ -92,7 +93,7 @@ export default function Home() {
     setResponseMsg("")
 
     try {
-      const res = await fetch("https://backendcoffee.onrender.com/api/leads", {
+      const res = await fetch("http://localhost:5000/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -538,84 +539,83 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About Section */}
-        <section className="py-24 bg-stone-50 relative overflow-hidden" aria-labelledby="about-heading">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-100 rounded-full opacity-40 blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-200 rounded-full opacity-30 blur-3xl" />
+        {/* StorySection */}
+<section className="py-24 bg-stone-50 relative overflow-hidden" aria-labelledby="about-heading">
+  <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-100 rounded-full opacity-40 blur-3xl" />
+  <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-200 rounded-full opacity-30 blur-3xl" />
 
-          <div className="container mx-auto px-4 md:px-8 relative z-10">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-              <FadeInView className="relative">
-                <div className="absolute -top-6 -left-6 w-24 h-24 bg-amber-100 rounded-full opacity-70 blur-xl" />
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-amber-200 rounded-full opacity-60 blur-xl" />
+  <div className="container mx-auto px-4 md:px-8 relative z-10">
+    <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <FadeInView className="relative">
+        <div className="absolute -top-6 -left-6 w-24 h-24 bg-amber-100 rounded-full opacity-70 blur-xl" />
+        <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-amber-200 rounded-full opacity-60 blur-xl" />
 
-                <div className="relative">
-                  <div className="rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7GoBwhD5SnEtEvnqBsi9Q2qWMo8rfW.png"
-                      alt="Coffee being poured into a cup"
-                      width={600}
-                      height={600}
-                      className="rounded-2xl"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-xl overflow-hidden shadow-lg border-4 border-white">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9JxYjZkZfRTHjrxkiMowyACG38gcCY.png"
-                      alt="Coffee shop interior"
-                      width={160}
-                      height={160}
-                      className="object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-              </FadeInView>
-
-              <div className="space-y-8">
-                <FadeInView delay={0.2}>
-                  <span className="text-amber-700 text-sm uppercase tracking-widest font-medium">Our Story</span>
-                  <h2 id="about-heading" className="text-3xl md:text-4xl font-serif text-stone-800 mt-2 mb-6">
-                    Truly Great Coffee
-                  </h2>
-
-                  <div className="w-16 h-[2px] bg-amber-700/60 mb-6"></div>
-                </FadeInView>
-
-                <div className="space-y-5 text-stone-700">
-                  {[
-                    <p key="1" className="leading-relaxed">
-                      <span className="font-serif italic">umber</span> pays tribute to an infinite and evolving coffee
-                      culture served in unique atmosphere along with fresh food options.
-                    </p>,
-                    <p key="2" className="leading-relaxed">
-                      Our well trained Baristas (some are a bit weird, some are too obsessed) are constantly trying to
-                      push the envelope in the art of coffee.
-                    </p>,
-                    <p key="3" className="leading-relaxed">
-                      Our kitchen is light and seasonal with an emphasis on fresh vegetables, made to order dishes,
-                      vegan options, healthy bowls and one of a kind pastries.
-                    </p>,
-                  ].map((paragraph, i) => (
-                    <FadeInView key={i} delay={0.3 + i * 0.1}>
-                      {paragraph}
-                    </FadeInView>
-                  ))}
-                </div>
-
-                <FadeInView delay={0.6}>
-                  <div className="pt-4">
-                    <Link href="/about">
-                      <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8">Our Story</Button>
-                    </Link>
-                  </div>
-                </FadeInView>
-              </div>
-            </div>
+        <div className="relative">
+          <div className="rounded-2xl overflow-hidden shadow-xl">
+            <Image
+              src="/ourstory.png"
+              alt="Coffee being poured into a cup"
+              width={600}
+              height={600}
+              className="rounded-2xl"
+              loading="lazy"
+            />
           </div>
-        </section>
+
+          <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-xl overflow-hidden shadow-lg border-4 border-white">
+            <Image
+              src="/ourstory1.png"
+              alt="Coffee shop interior"
+              width={160}
+              height={160}
+              className="object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </FadeInView>
+
+      <div className="space-y-8">
+        <FadeInView delay={0.2}>
+          <span className="text-amber-700 text-sm uppercase tracking-widest font-medium">Our Story</span>
+          <h2 id="about-heading" className="text-3xl md:text-4xl font-serif text-stone-800 mt-2 mb-6">
+            More Than Coffee
+          </h2>
+          <div className="w-16 h-[2px] bg-amber-700/60 mb-6"></div>
+        </FadeInView>
+
+        <div className="space-y-5 text-stone-700">
+          {[
+            <p key="1" className="leading-relaxed">
+              At <span className="font-serif italic">Umber</span>, we believe coffee is more than just a drink—it's a story, a ritual, a connection.
+            </p>,
+            <p key="2" className="leading-relaxed">
+              Born in the heart of Chennai, <span className="font-serif italic">Umber Speciality Coffee</span> was crafted as a grab-and-go concept for people in motion. Whether you're navigating a packed schedule or pausing for a mindful moment, we’re your daily ritual—made effortless.
+            </p>,
+            <p key="3" className="leading-relaxed">
+              Our mission is simple: make specialty coffee more accessible. We cut through the noise to bring you clean, ethically sourced brews—free from processed sugars, full of purpose, and rich in flavor.
+            </p>,
+            <p key="4" className="leading-relaxed">
+              We’re not here just to serve coffee. We’re here to redefine what coffee can be—honest, intentional, and beautifully brewed.
+            </p>,
+          ].map((paragraph, i) => (
+            <FadeInView key={i} delay={0.3 + i * 0.1}>
+              {paragraph}
+            </FadeInView>
+          ))}
+        </div>
+
+        <FadeInView delay={0.6}>
+          <div className="pt-4">
+            <Link href="/about">
+              <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8">Our Story</Button>
+            </Link>
+          </div>
+        </FadeInView>
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* Menu Preview Section */}
         <section className="py-24 bg-white relative overflow-hidden" aria-labelledby="menu-heading" id="menu">
@@ -774,7 +774,7 @@ export default function Home() {
                 <FadeInView delay={0.7}>
                   <div className="relative h-64 md:h-80 rounded-xl overflow-hidden shadow-lg">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Eub7NeqNEpaYUYJLt36LbRur2WzVuU.png"
+                      src="/conatact.png"
                       alt="Coffee beans being roasted"
                       fill
                       className="object-cover"
@@ -936,96 +936,8 @@ export default function Home() {
   </motion.div>
 </section>
   </main>
-
-      <footer className="bg-white py-16 border-t border-stone-100 relative overflow-hidden" role="contentinfo">
-        <div className="absolute -top-24 right-0 w-64 h-64 bg-amber-50 rounded-full opacity-30 blur-3xl" />
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-            <div>
-              <Link
-                href="/"
-                className="text-2xl font-serif tracking-wide text-stone-800 mb-4 inline-block"
-                aria-label="umber Coffee Home"
-              >
-                umber
-              </Link>
-              <p className="text-stone-600 mt-4 mb-6">
-                Crafting exceptional coffee experiences since 2015. A tribute to coffee culture and community.
-              </p>
-              <div className="flex space-x-4">
-                {[
-                  { Icon: Facebook, label: "Facebook" },
-                  { Icon: Instagram, label: "Instagram" },
-                ].map((item, i) => (
-                  <motion.a
-                    key={i}
-                    href="#"
-                    className="text-stone-600 hover:text-amber-700 transition-colors"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    aria-label={`Visit our ${item.label} page`}
-                  >
-                    <item.Icon className="h-5 w-5" />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-medium text-stone-800 mb-4">Manhattan</h3>
-              <p className="flex items-start text-stone-600 mb-2">
-                <MapPin className="h-4 w-4 mr-2 text-amber-700 flex-shrink-0 mt-1" aria-hidden="true" />
-                <span>130 Franklin St. New York, NY, 10013</span>
-              </p>
-              <p className="text-stone-500 text-sm ml-6">Open daily from 8am-5pm</p>
-            </div>
-
-            <div>
-              <h3 className="font-medium text-stone-800 mb-4">Jersey City</h3>
-              <p className="flex items-start text-stone-600 mb-2">
-                <MapPin className="h-4 w-4 mr-2 text-amber-700 flex-shrink-0 mt-1" aria-hidden="true" />
-                <span>198 Van Vorst St. Jersey City, NJ 07302</span>
-              </p>
-              <p className="text-stone-500 text-sm ml-6">Open daily 7am-6pm</p>
-            </div>
-
-            <div>
-              <h3 className="font-medium text-stone-800 mb-4">Contact</h3>
-              <div className="space-y-2">
-                <p className="flex items-center text-stone-600">
-                  <Phone className="h-4 w-4 mr-2 text-amber-700" aria-hidden="true" />
-                  <a href="tel:2124315200" className="hover:text-amber-700 transition-colors">
-                    212.431.5200
-                  </a>
-                </p>
-                <p className="flex items-center text-stone-600">
-                  <Mail className="h-4 w-4 mr-2 text-amber-700" aria-hidden="true" />
-                  <a href="mailto:info@umber.coffee" className="hover:text-amber-700 transition-colors">
-                    info@umber.coffee
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center text-sm text-stone-500">
-            <nav className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-4 md:mb-0" aria-label="Footer navigation">
-              {["About", "Contact Us", "Locations", "Menu", "Privacy Policy"].map((item, i) => (
-                <motion.div key={item} whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Link
-                    href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="hover:text-amber-700 transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-            <p>© {new Date().getFullYear()} by umber Coffee</p>
-          </div>
-        </div>
-      </footer>
+<Footer/>
+     
     </div>
   )
 }

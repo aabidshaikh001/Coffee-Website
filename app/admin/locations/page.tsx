@@ -25,7 +25,7 @@ export default function AdminLocations() {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const res = await fetch("https://backendcoffee.onrender.com/api/locations") // Replace with your actual API endpoint
+        const res = await fetch("http://localhost:5000/api/locations") // Replace with your actual API endpoint
         const data = await res.json()
         setLocations(data)
       } catch (error) {
@@ -49,9 +49,23 @@ export default function AdminLocations() {
   })
   
   // Handle delete location
-  const handleDeleteLocation = (id: string) => {
+  const handleDeleteLocation = async (id: string) => {
     if (confirm("Are you sure you want to delete this location?")) {
-      setLocations(locations.filter(location => location.id !== id))
+      try {
+        const res = await fetch(`http://localhost:5000/api/locations/${id}`, {
+          method: "DELETE",
+        })
+  
+        if (!res.ok) {
+          throw new Error("Failed to delete location")
+        }
+  
+        // Remove from local state after successful deletion
+        setLocations(locations.filter(location => location.id !== id))
+      } catch (error) {
+        console.error("Error deleting location:", error)
+        alert("Failed to delete location. Please try again.")
+      }
     }
   }
   

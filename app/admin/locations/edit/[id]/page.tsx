@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, Upload, Plus, Minus, Loader2, Check, AlertCircle, MapPin } from 'lucide-react'
 
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee.onrender.com/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
 
 type LocationType = {
   id: string
@@ -161,7 +161,7 @@ export default function EditLocation() {
       }
 
       alert("Location updated successfully!")
-      router.push("/admin/location")
+      router.push("/admin/locations")
     } catch (err: any) {
       setError(err.message || "Failed to update location")
       console.error("Error updating location:", err)
@@ -182,7 +182,7 @@ export default function EditLocation() {
   return (
     <div>
       <div className="flex items-center mb-8">
-        <Link href="/admin/location" className="mr-4">
+        <Link href="/admin/locations" className="mr-4">
           <Button variant="ghost" size="sm">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Locations
@@ -484,7 +484,7 @@ export default function EditLocation() {
           </div>
 
           <div className="p-6 flex justify-end gap-3">
-            <Link href="/admin/location">
+            <Link href="/admin/locations">
               <Button type="button" variant="outline">
                 Cancel
               </Button>
