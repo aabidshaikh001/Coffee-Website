@@ -52,7 +52,7 @@ export default function LocationsPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-     <Header/>
+    
         <div className="text-center max-w-md mx-auto px-4">
           <div className="text-red-500 mb-4">
             <svg
@@ -85,7 +85,7 @@ export default function LocationsPage() {
 
   return (
     <div className="min-h-screen bg-white">
-   
+    <Header/>
          <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
         
         <h1 className="text-4xl font-serif mb-12 text-center">Our Locations</h1>
