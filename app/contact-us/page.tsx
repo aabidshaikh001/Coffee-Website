@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/header";
-
+import {toast} from "sonner"
 
 interface Location {
   _id: string;
@@ -77,6 +77,7 @@ export default function ContactPage() {
       if (!response.ok) throw new Error("Something went wrong");
 
       setSuccess(true);
+      toast.success("Thank you! We'll get back to you soon.");
       setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" });
     } catch (err: any) {
       setError(err.message || "Failed to submit the form.");

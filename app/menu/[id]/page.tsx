@@ -220,11 +220,8 @@ export default function MenuItemPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header/>
-      <div className="container mx-auto px-4 py-12">
-        <Link href="/menu" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Menu
-        </Link>
+      <div className="container mx-auto px-8 py-24">
+        
 
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 mb-16">

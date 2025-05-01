@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import api from "@/lib/api"
 import { Footer } from "@/components/footer"
+import {toast} from "sonner"
+
 
 const BlurredTextReveal = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const ref = useRef(null)
@@ -105,6 +107,7 @@ export default function Home() {
 
       if (res.ok) {
         setResponseMsg("Message sent successfully!")
+        toast.success("Message sent successfully!")
         setFormData({
           firstName: "",
           lastName: "",
@@ -866,7 +869,7 @@ export default function Home() {
           </div>
         </section>
 
-   {/* Newsletter Section */}
+  {/* Newsletter Section */}
 <section
   className="relative overflow-hidden bg-gradient-to-br from-amber-800 via-amber-900 to-amber-950 py-20 text-white"
   aria-labelledby="newsletter-heading"
@@ -904,7 +907,14 @@ export default function Home() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: 0.2 }}
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={(e) => {
+        e.preventDefault();
+        // Show success toast
+        toast.success('Thank you for subscribing!');
+        // Reset form
+        // Reset form
+        (e.target as HTMLFormElement).reset();
+      }}
     >
       <div className="flex-1">
         <label htmlFor="email-newsletter" className="sr-only">
@@ -915,12 +925,12 @@ export default function Home() {
           type="email"
           required
           placeholder="Your email address"
-          className="w-full py-3 px-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full sm:rounded-r-none sm:rounded-l-full focus:outline-none focus:ring-2 focus:ring-amber-300 text-white placeholder:text-white/70 transition-all duration-200"
+          className="w-full h-full py-3 px-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full sm:rounded-r-none sm:rounded-l-full focus:outline-none focus:ring-2 focus:ring-amber-300 text-white placeholder:text-white/70 transition-all duration-200"
         />
       </div>
       <Button
         type="submit"
-        className="px-8 py-4 bg-white text-amber-900 hover:bg-amber-100 rounded-full sm:rounded-l-none sm:rounded-r-full font-semibold transition-all duration-200 shadow-md"
+        className="h-full px-8 py-3 bg-white text-amber-900 hover:bg-amber-100 rounded-full sm:rounded-l-none sm:rounded-r-full font-semibold transition-all duration-200 shadow-md"
       >
         Subscribe
       </Button>
