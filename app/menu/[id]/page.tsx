@@ -53,7 +53,7 @@ const ShareModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <Header/>
+         
       <div className="bg-white rounded-lg max-w-md w-full p-6 relative">
         <button
           onClick={onClose}
@@ -219,6 +219,7 @@ export default function MenuItemPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header/>
       <div className="container mx-auto px-4 py-12">
         <Link href="/menu" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -275,32 +276,7 @@ export default function MenuItemPage() {
                 </div>
               </div>
 
-              {product.category === "coffee" && (
-                <div className="mb-6">
-                  <h2 className="text-lg font-medium mb-2">Customizations</h2>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <h3 className="text-sm font-medium mb-1">Milk Options</h3>
-                      <select className="w-full border rounded-md p-2">
-                        <option>Whole Milk</option>
-                        <option>Oat Milk (+$0.75)</option>
-                        <option>Almond Milk (+$0.75)</option>
-                        <option>Soy Milk (+$0.75)</option>
-                      </select>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium mb-1">Extras</h3>
-                      <select className="w-full border rounded-md p-2">
-                        <option>None</option>
-                        <option>Extra Shot (+$1.00)</option>
-                        <option>Vanilla Syrup (+$0.75)</option>
-                        <option>Caramel Syrup (+$0.75)</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              )}
-
+             
               <div className="border-t pt-6">
                 <div className="mb-4">
                   <h2 className="text-lg font-medium mb-2 flex items-center">
