@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, MapPin, Coffee, ArrowRight } from "lucide-react"
+import Image from "next/image";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -25,12 +26,18 @@ export default function Header() {
       >
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="text-3xl font-serif tracking-wide relative" aria-label="umber Coffee Home">
-                <span className="relative z-10 text-stone-800">umber</span>
-                <span className="absolute -bottom-1 left-0 h-[2px] bg-amber-700/60 w-full -z-10" />
-              </Link>
-            </div>
+          <div className="flex items-center space-x-6">
+  <Link href="/" className="relative" aria-label="umber Coffee Home">
+    <Image
+      src="/logo.png" // Replace with your actual logo path
+      alt="Umber Coffee Logo"
+      width={100} // Adjust width
+      height={40}  // Adjust height
+      className="relative z-10 object-contain"
+    />
+   
+  </Link>
+</div>
 
             <div className="hidden lg:flex items-center space-x-8">
               <nav
@@ -70,14 +77,7 @@ export default function Header() {
                   </button>
                 </Link>
 
-                <Link href="/#contact">
-                  <Button className="rounded-full px-6 text-sm font-medium tracking-wide transition-colors bg-amber-800 hover:bg-amber-900 text-white shadow-sm">
-                    Book A Seat
-                    <span className="ml-2">
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </Button>
-                </Link>
+                
               </div>
             </div>
 
@@ -111,9 +111,15 @@ export default function Header() {
           aria-label="Mobile navigation menu"
         >
           <div className="flex justify-between items-center p-6">
-            <Link href="/" className="text-3xl font-serif tracking-wide text-white" aria-label="umber Coffee Home">
-              umber
-            </Link>
+          <Link href="/" className="relative" aria-label="umber Coffee Home">
+  <Image
+    src="/logo.png" // Replace this with your actual logo path in /public
+    alt="Umber Coffee Logo"
+    width={90} // Adjust to your design
+    height={40}
+    className="object-contain"
+  />
+</Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 text-white/80 hover:text-white transition-colors"
@@ -140,11 +146,7 @@ export default function Header() {
               </div>
             ))}
 
-            <div className="pt-6">
-              <Button className="bg-white text-amber-800 hover:bg-amber-50 rounded-full px-8 shadow-lg">
-                Book A Seat
-              </Button>
-            </div>
+       
           </nav>
 
           <div className="p-6 text-white/60 text-center text-sm">

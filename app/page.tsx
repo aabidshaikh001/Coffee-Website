@@ -181,22 +181,25 @@ export default function Home() {
       >
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -20 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center space-x-6"
-            >
-              <Link href="/" className="text-3xl font-serif tracking-wide relative" aria-label="umber Coffee Home">
-                <span className={`relative z-10 ${scrollY > 50 ? "text-stone-800" : "text-white"}`}>umber</span>
-                <motion.span
-                  className="absolute -bottom-1 left-0 h-[2px] bg-amber-700/60 w-full -z-10"
-                  initial={{ width: 0 }}
-                  animate={{ width: isLoaded ? "100%" : 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                />
-              </Link>
-            </motion.div>
+
+<motion.div
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -20 }}
+  transition={{ duration: 0.6 }}
+  className="flex items-center space-x-6"
+>
+  <Link href="/" className="relative" aria-label="umber Coffee Home">
+    <Image
+      src="/logo.png" // replace with your logo path in `public/`
+      alt="Umber Coffee Logo"
+      width={100} // adjust width as needed
+      height={40} // adjust height as needed
+      className={`relative z-10 transition-colors duration-300 ${scrollY > 50 ? "brightness-100" : "brightness-100"}`}
+    />
+ 
+  </Link>
+</motion.div>
+
 
             <div className="hidden lg:flex items-center space-x-8">
               <motion.nav
@@ -253,32 +256,6 @@ export default function Home() {
                 </Link>
 
 
-                <Link href="/#contact">
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.9 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <Button
-                    className={`rounded-full px-6 text-sm font-medium tracking-wide ${
-                      scrollY > 50
-                        ? "bg-amber-800 hover:bg-amber-900 text-white shadow-sm"
-                        : "bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20"
-                    }`}
-                  >
-                    Book A Seat
-                    <motion.span
-                      className="ml-2"
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5, ease: "easeInOut" }}
-                    >
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </motion.span>
-                  </Button>
-                </motion.div>
-                </Link>
               </div>
             </div>
 
@@ -324,9 +301,15 @@ export default function Home() {
             aria-label="Mobile navigation menu"
           >
             <div className="flex justify-between items-center p-6">
-              <Link href="/" className="text-3xl font-serif tracking-wide text-white" aria-label="umber Coffee Home">
-                umber
-              </Link>
+           <Link href="/" className="relative" aria-label="umber Coffee Home">
+  <Image
+    src="/logo.png" // Replace with your actual logo path in the /public folder
+    alt="Umber Coffee Logo"
+    width={90} // Adjust as needed
+    height={40} // Adjust as needed
+    className="object-contain"
+  />
+</Link>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -363,11 +346,7 @@ export default function Home() {
                 </motion.div>
               ))}
 
-              <motion.a href="/#contact" variants={fadeInUp} className="pt-6">
-                <Button className="bg-white text-amber-900 hover:bg-amber-50 rounded-full px-8 shadow-lg">
-                  Book A Seat
-                </Button>
-              </motion.a>
+           
             </motion.nav>
 
             <div className="p-6 text-white/60 text-center text-sm">
@@ -379,80 +358,75 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section
-          className="relative h-screen flex items-center justify-center overflow-hidden"
-          aria-labelledby="hero-heading"
-        >
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="https://wallpapercat.com/w/full/4/1/3/593669-3840x2160-desktop-4k-coffee-beans-wallpaper.jpg"
-              alt="Coffee beans being roasted"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          <section
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+        aria-labelledby="hero-heading"
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://wallpapercat.com/w/full/4/1/3/593669-3840x2160-desktop-4k-coffee-beans-wallpaper.jpg"
+            alt="Coffee beans being roasted"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        </div>
+
+        <div className="relative z-10 text-center text-white max-w-4xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mb-8 overflow-hidden"
+          >
+            <span className="inline-block py-1.5 px-5 rounded-full text-xs uppercase tracking-widest bg-white/10 backdrop-blur-md border border-white/20">
+              Welcome to Umber
+            </span>
+          </motion.div>
+
+          <div className="overflow-hidden mb-8">
+            <BlurredTextReveal delay={0.8}>
+              <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-serif tracking-wide leading-tight">
+                At Umber, we believe coffee is more than just a drink—it's a{" "}
+                <span className="text-amber-300">story</span>, a <span className="text-amber-300">ritual</span>, a{" "}
+                <span className="text-amber-300">connection</span>.
+              </h1>
+            </BlurredTextReveal>
           </div>
 
-          <div className="relative z-10 text-center text-white max-w-4xl px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mb-8 overflow-hidden"
-            >
-              <span className="inline-block py-1.5 px-5 rounded-full text-xs uppercase tracking-widest bg-white/10 backdrop-blur-md border border-white/20">
-                Crafting exceptional coffee experiences since 2015
-              </span>
-            </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="text-white/80 max-w-xl mx-auto mb-10 text-lg"
+          >
+            Discover the perfect blend of tradition and innovation in every cup
+          </motion.p>
 
-            <div className="overflow-hidden mb-8">
-              <BlurredTextReveal delay={0.8}>
-                <h1
-                  id="hero-heading"
-                  className="text-6xl md:text-7xl lg:text-8xl font-serif tracking-wide leading-tight"
-                >
-                  coffee <span className="text-amber-300">culture</span> tribute
-                </h1>
-              </BlurredTextReveal>
-            </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+          >
+            <Link href="/menu">
+              <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8 py-6 text-base shadow-xl">
+                Explore Our Menu
+              </Button>
+            </Link>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="text-white/80 max-w-xl mx-auto mb-10 text-lg"
-            >
-              A unique coffee experience that celebrates the art of coffee making and the joy of community
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-            >
-              <Link href="/menu">
-                <Button className="bg-amber-700 hover:bg-amber-800 text-white rounded-full px-8 py-6 text-base shadow-xl">
-                  Explore Our Menu
-                </Button>
-              </Link>
-
-              <Link href="/locations">
-                <Button
-                  variant="outline"
-                  className="bg-transparent border border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-base backdrop-blur-sm"
-                >
-                  Find a Location
-                </Button>
-              </Link>
-            </motion.div>
-          </div>
-
-          
-          
-                  </section>
-
+            <Link href="/locations">
+              <Button
+                variant="outline"
+                className="bg-transparent border border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-base backdrop-blur-sm"
+              >
+                Find a Location
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
         {/* Locations Section */}
         <section className="py-24 bg-white relative" aria-labelledby="locations-heading" id="locations">
           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-stone-50 to-transparent" />
@@ -716,159 +690,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section className="py-24 bg-stone-50 relative overflow-hidden" aria-labelledby="contact-heading" id="contact">
-          <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-amber-100 rounded-full opacity-40 blur-3xl" />
-
-          <div className="container mx-auto px-4 md:px-8 relative z-10">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
-              <div>
-                <FadeInView>
-                  <span className="text-amber-700 text-sm uppercase tracking-widest font-medium">Get in Touch</span>
-                  <h2 id="contact-heading" className="text-3xl md:text-4xl font-serif text-stone-800 mt-2 mb-6">
-                    Contact Us
-                  </h2>
-                  <div className="w-16 h-[2px] bg-amber-700/60 mb-8"></div>
-                </FadeInView>
-
-                <FadeInView delay={0.2} className="text-amber-700 mb-8">
-                  <p className="italic">
-                    * Please note - we do not take reservations at this time (walk-in only). Thank you!
-                  </p>
-                </FadeInView>
-
-                <FadeInView delay={0.3}>
-                  <h3 className="text-xl font-serif mb-4 text-stone-800">Call:</h3>
-                </FadeInView>
-
-                <div className="space-y-3 mb-10">
-                  {featuredLocations.slice(0, 3).map((location: any, i) => (
-                    <FadeInView key={location.id} delay={0.4 + i * 0.1} className="flex items-center">
-                      <Phone className="h-4 w-4 mr-3 text-amber-700" aria-hidden="true" />
-                      <span className="font-medium text-stone-700">{location.name}:</span>{" "}
-                      <a
-                        href={`tel:${location.phone.replace(/\D/g, "")}`}
-                        className="ml-1 hover:text-amber-700 transition-colors"
-                      >
-                        {location.phone}
-                      </a>
-                    </FadeInView>
-                  ))}
-                </div>
-
-                <FadeInView delay={0.6} className="flex space-x-5 mb-10">
-                  {[
-                  
-                    { Icon: Instagram, label: "Instagram" , href: "https://www.instagram.com/helloumbercoffee/" },
-                  ].map((item, i) => (
-                    <motion.a
-                      key={i}
-                      href={item.href}
-                      className="text-stone-700 hover:text-amber-700 transition-colors"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                      aria-label={`Visit our ${item.label} page`}
-                    >
-                      <item.Icon className="h-5 w-5" />
-                    </motion.a>
-                  ))}
-                </FadeInView>
-
-                <FadeInView delay={0.7}>
-                  <div className="relative h-64 md:h-80 rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src="/conatact.png"
-                      alt="Coffee beans being roasted"
-                      fill
-                      className="object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  </div>
-                </FadeInView>
-              </div>
-
-              <FadeInView delay={0.4}>
-                <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
-                  <h3 className="text-xl font-serif mb-6 text-stone-800">
-                    Send your message and we will get back to you:
-                  </h3>
-
-                  <form className="space-y-6" onSubmit={handleSubmit}>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label htmlFor="firstName" className="text-sm text-stone-600">First Name</label>
-          <input
-            id="firstName"
-            type="text"
-            value={formData.firstName}
-            onChange={handleChange}
-            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="lastName" className="text-sm text-stone-600">Last Name</label>
-          <input
-            id="lastName"
-            type="text"
-            value={formData.lastName}
-            onChange={handleChange}
-            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label htmlFor="email" className="text-sm text-stone-600">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="phone" className="text-sm text-stone-600">Phone</label>
-          <input
-            id="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="message" className="text-sm text-stone-600">Message</label>
-        <textarea
-          id="message"
-          rows={5}
-          value={formData.message}
-          onChange={handleChange}
-          className="w-full border-b border-stone-300 py-2 focus:outline-none focus:border-amber-700 bg-transparent"
-          required
-        />
-      </div>
-
-      <div className="text-center">
-        <Button type="submit" className="bg-amber-700 hover:bg-amber-800 text-white px-8 rounded-full shadow-md" disabled={loading}>
-          {loading ? "Submitting..." : "Submit"}
-        </Button>
-        {responseMsg && <p className="mt-4 text-sm text-stone-700">{responseMsg}</p>}
-      </div>
-    </form>
-                    </div>
-              </FadeInView>
-            </div>
-          </div>
-        </section>
-
+       
   {/* Newsletter Section */}
 <section
   className="relative overflow-hidden bg-gradient-to-br from-amber-800 via-amber-900 to-amber-950 py-20 text-white"
