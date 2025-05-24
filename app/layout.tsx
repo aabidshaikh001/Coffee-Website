@@ -7,9 +7,12 @@ import { Toaster } from 'sonner';
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "umber Coffee - Coffee Culture Tribute",
+  title: "Umber Coffee - Coffee Culture Tribute",
   description: "A tribute to coffee culture with unique atmosphere and fresh food options",
-    generator: 'v0.dev'
+  keywords: ["coffee", "culture", "fresh food", "community", "umber coffee"],
+  authors: [{ name: "Umber Coffee" }],
+  creator: "Umber Coffee",
+   
 }
 
 export default function RootLayout({
