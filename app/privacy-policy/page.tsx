@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
           <div className="text-neutral-700 mb-8">
             <p>By email: privacy@umber.com</p>
             <p>By phone: +91 821 741 03987</p>
-            <p>By mail: 123 Coffee Street, New York, NY 10001</p>
+            <p>By mail: No.6, Sindur Plaza, EgmoreChennai, Tamil Nadu 600008</p>
           </div>
 
           <div className="text-center text-neutral-700 italic border-t border-b py-8 my-8">
