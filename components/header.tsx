@@ -105,7 +105,7 @@ export default function Header() {
       {mobileMenuOpen && (
         <div
           id="mobile-menu"
-          className="fixed inset-0 bg-gradient-to-br from-amber-900 to-amber-950 z-50 lg:hidden flex flex-col"
+          className="fixed inset-0 bg-white z-50 lg:hidden flex flex-col"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
@@ -122,7 +122,7 @@ export default function Header() {
 </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 text-white/80 hover:text-white transition-colors"
+              className="p-2 text-amber-700 hover:text-amber-800 transition-colors"
               aria-label="Close menu"
             >
               <X className="h-6 w-6" />
@@ -138,7 +138,7 @@ export default function Header() {
               <div key={item.name}>
                 <Link
                   href={item.href}
-                  className="text-white/90 hover:text-white transition-colors tracking-wide"
+                  className="text-amber-700 hover:text-amber-800 transition-colors tracking-wide"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
@@ -149,7 +149,7 @@ export default function Header() {
        
           </nav>
 
-          <div className="p-6 text-white/60 text-center text-sm">
+          <div className="p-6 text-amber-700 text-center text-sm">
             <p>© {new Date().getFullYear()} by umber Coffee</p>
           </div>
         </div>
