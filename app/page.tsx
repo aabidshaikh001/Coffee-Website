@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { MapPin, ArrowRight, Menu, X, Coffee, Star, TrendingUp } from "lucide-react"
+import { FaStar, FaRocket, FaCheckCircle, FaBolt } from "react-icons/fa";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { motion, AnimatePresence, useInView } from "framer-motion"
@@ -980,26 +981,25 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Trust Indicators */}
-                <div className="mt-12 pt-8 border-t border-stone-200">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                    {[
-                      { label: "Verified Reviews", value: "4.9k+", icon: "✓" },
-                      { label: "Response Rate", value: "98%", icon: "⚡" },
-                      { label: "On-Time Delivery", value: "95%", icon: "🚀" },
-                      { label: "Quality Score", value: "A+", icon: "⭐" },
-                    ].map((indicator, index) => (
-                      <FadeInView key={indicator.label} delay={0.8 + index * 0.1}>
-                        <div className="space-y-2">
-                          <div className="text-2xl">{indicator.icon}</div>
-                          <div className="font-bold text-lg text-stone-800">{indicator.value}</div>
-                          <div className="text-sm text-stone-600">{indicator.label}</div>
-                        </div>
-                      </FadeInView>
-                    ))}
-                  </div>
-                </div>
-              </div>
+               {/* Trust Indicators */}
+<div className="mt-12 pt-8 border-t border-stone-200">
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    {[
+      { label: "Verified Reviews", value: "4.9k+", icon: <FaCheckCircle className="text-blue-600 text-2xl" /> },
+      { label: "Response Rate", value: "98%", icon: <FaBolt className="text-yellow-500 text-2xl" /> },
+      { label: "On-Time Delivery", value: "95%", icon: <FaRocket className="text-green-500 text-2xl" /> },
+      { label: "Quality Score", value: "A+", icon: <FaStar className="text-orange-400 text-2xl" /> },
+    ].map((indicator, index) => (
+      <FadeInView key={indicator.label} delay={0.8 + index * 0.1}>
+        <div className="space-y-2">
+          <div>{indicator.icon}</div>
+          <div className="font-bold text-lg text-stone-800">{indicator.value}</div>
+          <div className="text-sm text-stone-600">{indicator.label}</div>
+        </div>
+      </FadeInView>
+    ))}
+  </div>
+</div>             </div>
             </FadeInView>
 
             {/* Enhanced Customer Testimonials */}
