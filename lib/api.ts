@@ -1,7 +1,7 @@
 // Frontend API client for connecting to the backend
 
 // Base API URL - would come from environment variables in production
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backendcoffee-production.up.railway.app/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backendcoffee-1.onrender.com/api';
 
 // Helper to handle API responses
 const handleResponse = async (response: Response) => {

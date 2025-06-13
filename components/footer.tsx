@@ -34,7 +34,7 @@ export const Footer = () => {
     const fetchLocations = async () => {
       setIsLoading(true)
       try {
-        const res = await fetch("https://backendcoffee-production.up.railway.app/api/locations")
+        const res = await fetch("https://backendcoffee-1.onrender.com/api/locations")
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status}`)
         }

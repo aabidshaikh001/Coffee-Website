@@ -43,7 +43,7 @@ export default function ContactPage() {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const res = await fetch("https://backendcoffee-production.up.railway.app/api/locations");
+        const res = await fetch("https://backendcoffee-1.onrender.com/api/locations");
         const data = await res.json();
         if (Array.isArray(data)) {
           setLocations(data);
@@ -68,7 +68,7 @@ export default function ContactPage() {
     setError("");
 
     try {
-      const response = await fetch("https://backendcoffee-production.up.railway.app/api/leads", {
+      const response = await fetch("https://backendcoffee-1.onrender.com/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

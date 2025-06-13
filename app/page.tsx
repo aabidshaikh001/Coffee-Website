@@ -1,19 +1,32 @@
 "use client"
 
 import type React from "react"
-
+import { Clock, Phone, ExternalLink } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, ArrowRight, Menu, X, Coffee, Star, TrendingUp } from "lucide-react"
+import { MapPin, ArrowRight, Menu, X, Coffee, Star, TrendingUp,Leaf } from "lucide-react"
 import { FaStar, FaRocket, FaCheckCircle, FaBolt } from "react-icons/fa";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import api from "@/lib/api"
 import { Footer } from "@/components/footer"
+import { cn } from "@/lib/utils"
 import { toast } from "sonner"
-
+interface Location {
+  id: string
+  name: string
+  subtitle: string
+  address: string
+  subtext: string
+  hours: string
+  hours2?: string
+  note?: string
+  image: string
+  phone?: string
+  features?: string[]
+}
 // Counter component for animated numbers
 const AnimatedCounter = ({
   end,
@@ -172,7 +185,42 @@ const fadeInUp = {
   },
 }
 
+const shimmer = (w: number, h: number) => `
+<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="g">
+      <stop stopColor="#f3f4f6" offset="20%" />
+      <stop stopColor="#e5e7eb" offset="50%" />
+      <stop stopColor="#f3f4f6" offset="70%" />
+    </linearGradient>
+  </defs>
+  <rect width="${w}" height="${h}" fill="#f3f4f6" />
+  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+  <animate xlinkHref="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+</svg>`
+
+const toBase64 = (str: string) =>
+  typeof window === "undefined" ? Buffer.from(str).toString("base64") : window.btoa(str)
 export default function Home() {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  }
   const [scrollY, setScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -210,7 +258,7 @@ export default function Home() {
     setResponseMsg("")
 
     try {
-      const res = await fetch("https://backendcoffee-production.up.railway.app/api/leads", {
+      const res = await fetch("https://backendcoffee-1.onrender.com/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -526,97 +574,256 @@ export default function Home() {
         </section>
 
       
-        {/* Locations Section */}
-        <section className="py-24 bg-white relative" aria-labelledby="locations-heading" id="locations">
-          <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-stone-50 to-transparent" />
+         <section
+      className="py-24 md:py-32 relative bg-gradient-to-b from-stone-50 to-white"
+      aria-labelledby="locations-heading"
+      id="locations"
+    >
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#9a7c52_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-stone-50 to-transparent" />
 
-          <div className="container mx-auto px-4 md:px-8 relative z-10">
-            <div className="max-w-md mx-auto text-center mb-16">
-              <FadeInView>
-                <span className="text-amber-700 text-sm uppercase tracking-widest font-medium">Our Spaces</span>
-                <h2 id="locations-heading" className="text-3xl md:text-4xl font-serif text-stone-800 mt-2 mb-4">
-                  Visit Us
-                </h2>
-                <div className="w-16 h-[2px] bg-amber-700/60 mx-auto mb-6"></div>
-                <p className="text-stone-600">
-                  Three carefully designed spaces, each with its own unique character but the same commitment to
-                  quality.
-                </p>
-              </FadeInView>
-            </div>
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-md mx-auto text-center mb-16 md:mb-24"
+        >
+          <span className="text-amber-700 text-sm uppercase tracking-widest font-medium inline-block px-3 py-1 rounded-full bg-amber-50 mb-2">
+            Our Spaces
+          </span>
+          <h2 id="locations-heading" className="text-3xl md:text-4xl lg:text-5xl font-serif text-stone-800 mt-2 mb-4">
+            Visit Our Cafés
+          </h2>
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <div className="h-[2px] w-12 bg-amber-700/30"></div>
+            <div className="h-[3px] w-12 bg-amber-700/60"></div>
+            <div className="h-[2px] w-12 bg-amber-700/30"></div>
+          </div>
+          <p className="text-stone-600 leading-relaxed md:text-lg">
+            Three carefully designed spaces, each with its own unique character but the same commitment to quality
+            coffee and exceptional experiences.
+          </p>
+        </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {isLoading ? (
-                [...Array(3)].map((_, i) => (
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="space-y-16 md:space-y-24"
+        >
+          {isLoading ? (
+            [...Array(3)].map((_, i) => (
+              <motion.div key={i} variants={item} className="flex flex-col md:flex-row gap-8 md:gap-12">
+                <div className="relative w-full md:w-1/2 h-64 md:h-80 bg-stone-100 overflow-hidden rounded-lg">
                   <div
-                    key={i}
-                    className="bg-white rounded-xl overflow-hidden shadow-sm h-full flex flex-col animate-pulse"
-                  >
-                    <div className="relative h-56 bg-neutral-200"></div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="h-6 bg-neutral-200 rounded w-1/2 mb-4"></div>
-                      <div className="h-4 bg-neutral-200 rounded w-full mb-2"></div>
-                      <div className="h-4 bg-neutral-200 rounded w-3/4 mb-4"></div>
-                      <div className="h-4 bg-neutral-200 rounded w-5/6 mb-2"></div>
-                      <div className="mt-auto pt-4 border-t border-stone-100">
-                        <div className="h-6 bg-neutral-200 rounded w-1/3"></div>
-                      </div>
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}")`,
+                      backgroundSize: "cover",
+                    }}
+                  />
+                </div>
+                <div className="w-full md:w-1/2 flex flex-col">
+                  <div className="h-8 bg-stone-100 rounded w-2/3 mb-2"></div>
+                  <div className="h-4 bg-stone-100 rounded w-1/3 mb-8"></div>
+
+                  <div className="flex items-start mb-6">
+                    <div className="w-5 h-5 rounded-full bg-stone-100 mr-3 mt-0.5"></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-stone-100 rounded w-full mb-2"></div>
+                      <div className="h-3 bg-stone-100 rounded w-4/5"></div>
                     </div>
                   </div>
-                ))
-              ) : featuredLocations.length > 0 ? (
-                featuredLocations.map((location: any, i) => (
-                  <FadeInView key={location.id} delay={0.2 * i} className="group">
-                    <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
-                      <div className="relative h-56 overflow-hidden">
-                        <Image
-                          src={location.image || "/placeholder.svg"}
-                          alt={`${location.name} location`}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        <div className="absolute bottom-0 left-0 p-6 text-white">
-                          <h3 className="text-xl font-serif">{location.name}</h3>
-                          <p className="text-white/80 text-sm">{location.subtitle}</p>
-                        </div>
-                      </div>
 
-                      <div className="p-6 flex-1 flex flex-col">
-                        <div className="flex-1">
-                          <p className="flex items-start mb-2 text-stone-700">
-                            <MapPin className="h-4 w-4 mr-2 text-amber-700 flex-shrink-0 mt-1" aria-hidden="true" />
-                            <span>{location.address}</span>
-                          </p>
-                          <p className="text-stone-500 text-sm ml-6 mb-4">{location.subtext}</p>
-                          <p className="text-stone-700 ml-6">{location.hours}</p>
-                          {location.hours2 && <p className="text-stone-700 text-sm ml-6">{location.hours2}</p>}
-                          {location.note && <p className="text-amber-700 font-medium ml-6 mt-2">{location.note}</p>}
-                        </div>
-
-                        <div className="mt-6 pt-4 border-t border-stone-100">
-                          <Link
-                            href={`/locations/${location.id}`}
-                            className="inline-flex items-center text-amber-700 font-medium text-sm group-hover:text-amber-800 transition-colors"
-                          >
-                            Get directions
-                            <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                          </Link>
-                        </div>
-                      </div>
+                  <div className="flex items-start mb-6">
+                    <div className="w-5 h-5 rounded-full bg-stone-100 mr-3 mt-0.5"></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-stone-100 rounded w-3/4 mb-2"></div>
+                      <div className="h-3 bg-stone-100 rounded w-1/2"></div>
                     </div>
-                  </FadeInView>
-                ))
-              ) : (
-                <div className="col-span-3 text-center py-12">
-                  <p className="text-neutral-500">No locations found. Please check back later.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+                  </div>
 
+                  <div className="mt-auto pt-6 flex justify-between">
+                    <div className="h-5 bg-stone-100 rounded w-1/4"></div>
+                    <div className="h-5 bg-stone-100 rounded w-1/4"></div>
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          ) : featuredLocations.length > 0 ? (
+            featuredLocations.map((location: Location, i) => (
+              <motion.div
+                key={location.id}
+                variants={item}
+                className={cn("group", i < featuredLocations.length - 1 && "pb-16 md:pb-24 border-b border-stone-200")}
+              >
+                <div className="flex flex-col md:flex-row gap-8 md:gap-12 lg:gap-16">
+                  <div className="relative w-full md:w-1/2 h-64 md:h-80 overflow-hidden rounded-lg">
+                    <Image
+                      src={location.image || "/placeholder.svg?height=800&width=1200"}
+                      alt={`${location.name} location`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading={i < 1 ? "eager" : "lazy"}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+                    />
+                    <div
+                      className={cn(
+                        "absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent",
+                        "opacity-80 group-hover:opacity-70 transition-opacity duration-300",
+                      )}
+                    />
+
+                    {/* Feature tags */}
+                    {location.features && location.features.length > 0 && (
+                      <div className="absolute top-4 right-4 flex flex-wrap gap-2 justify-end max-w-[70%]">
+                        {location.features.map((feature, index) => (
+                          <span
+                            key={index}
+                            className={cn(
+                              "bg-white/90 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium",
+                              "shadow-sm transform transition-transform duration-300",
+                              "group-hover:translate-y-[-2px] group-hover:shadow-md",
+                              "delay-[calc(75ms*var(--index))]",
+                            )}
+                            style={{ "--index": index } as React.CSSProperties}
+                          >
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="w-full md:w-1/2 flex flex-col">
+                    <h3 className="text-2xl md:text-3xl font-serif text-stone-800 group-hover:text-amber-800 transition-colors duration-300">
+                      {location.name}
+                    </h3>
+                    <p className="text-stone-600 mt-1 mb-6">{location.subtitle}</p>
+
+                    <div className="space-y-6 mb-8">
+                      <div className="flex items-start text-stone-700">
+                        <MapPin
+                          className={cn(
+                            "h-5 w-5 mr-3 text-amber-700 flex-shrink-0 mt-0.5",
+                            "transition-transform duration-300 ease-out",
+                            "group-hover:text-amber-600 group-hover:scale-110",
+                          )}
+                          aria-hidden="true"
+                        />
+                        <div>
+                          <p className="font-medium">{location.address}</p>
+                          <p className="text-stone-500 text-sm mt-1">{location.subtext}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start text-stone-700">
+                        <Clock
+                          className={cn(
+                            "h-5 w-5 mr-3 text-amber-700 flex-shrink-0 mt-0.5",
+                            "transition-transform duration-300 ease-out delay-75",
+                            "group-hover:text-amber-600 group-hover:scale-110",
+                          )}
+                          aria-hidden="true"
+                        />
+                        <div>
+                          <p>{location.hours}</p>
+                          {location.hours2 && <p className="text-stone-500 text-sm mt-1">{location.hours2}</p>}
+                        </div>
+                      </div>
+
+                      {location.phone && (
+                        <div className="flex items-start text-stone-700">
+                          <Phone
+                            className={cn(
+                              "h-5 w-5 mr-3 text-amber-700 flex-shrink-0 mt-0.5",
+                              "transition-transform duration-300 ease-out delay-150",
+                              "group-hover:text-amber-600 group-hover:scale-110",
+                            )}
+                            aria-hidden="true"
+                          />
+                          <p>{location.phone}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {location.note && (
+                      <div
+                        className={cn(
+                          "p-4 bg-amber-50 rounded-lg border-l-4 border-amber-400 mb-6",
+                          "transform transition-all duration-300 ease-out",
+                          "group-hover:border-amber-500 group-hover:bg-amber-50/80",
+                        )}
+                      >
+                        <p className="text-amber-800 text-sm">{location.note}</p>
+                      </div>
+                    )}
+
+                    <div className="mt-auto flex justify-between items-center">
+                      <Link
+                        href={`/locations/${location.id}`}
+                        className={cn(
+                          "inline-flex items-center text-amber-700 font-medium",
+                          "transition-colors duration-300 group-hover:text-amber-800",
+                          "focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 rounded-md",
+                        )}
+                      >
+                        View details
+                        <ArrowRight
+                          className={cn(
+                            "ml-1.5 h-4 w-4",
+                            "transition-transform duration-300 ease-out",
+                            "group-hover:translate-x-1",
+                          )}
+                        />
+                      </Link>
+
+                      <Link
+                        href={`https://maps.google.com/?q=${encodeURIComponent(location.address)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          "inline-flex items-center text-stone-500 text-sm",
+                          "hover:text-stone-700 transition-colors duration-300",
+                          "focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 rounded-md",
+                        )}
+                        aria-label={`Get directions to ${location.name}`}
+                      >
+                        Get directions
+                        <ExternalLink
+                          className={cn(
+                            "ml-1 h-3 w-3",
+                            "transition-transform duration-300 ease-out",
+                            "group-hover:translate-y-[-1px] group-hover:translate-x-[1px]",
+                          )}
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <motion.div variants={item} className="text-center py-16 bg-stone-50 rounded-lg">
+              <MapPin className="h-12 w-12 text-stone-300 mx-auto mb-4" />
+              <p className="text-stone-600 font-medium">No locations found. Please check back later.</p>
+              <p className="text-stone-500 text-sm mt-2 max-w-md mx-auto">
+                We're constantly expanding to new neighborhoods. Sign up for our newsletter to be notified when we open
+                near you.
+              </p>
+            </motion.div>
+          )}
+        </motion.div>
+
+       
+      </div>
+    </section>
         {/* Story Section */}
         <section className="py-24 bg-stone-50 relative overflow-hidden" aria-labelledby="about-heading">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-100 rounded-full opacity-40 blur-3xl" />
@@ -829,39 +1036,41 @@ export default function Home() {
             {/* Key Performance Indicators */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
               {[
-                {
-                  label: "Cups Served",
-                  value: 125000,
-                  suffix: "+",
-                  icon: Coffee,
-                  color: "from-amber-500 to-amber-600",
-                  description: "Happy customers served",
-                },
-                {
-                  label: "Customer Rating",
-                  value: 4.3,
-                  suffix: "/5",
-                  icon: Star,
-                  color: "from-yellow-500 to-yellow-600",
-                  description: "Average across platforms",
-                },
-                {
-                  label: "Repeat Customers",
-                  value: 89,
-                  suffix: "%",
-                  icon: TrendingUp,
-                  color: "from-green-500 to-green-600",
-                  description: "Come back regularly",
-                },
-                {
-                  label: "Daily Orders",
-                  value: 450,
-                  suffix: "+",
-                  icon: MapPin,
-                  color: "from-blue-500 to-blue-600",
-                  description: "Across all locations",
-                },
-              ].map((metric, index) => (
+  {
+    label: "Customer Rating",
+    value: 4.3,
+    suffix: "/5",
+    icon: Star,
+    color: "from-yellow-500 to-yellow-600",
+    description: "Average across platforms",
+  },
+  {
+    label: "Repeat Customers",
+    value: 89,
+    suffix: "%",
+    icon: TrendingUp,
+    color: "from-green-500 to-green-600",
+    description: "Come back regularly",
+  },
+
+  {
+    label: "Specialty Beverages",
+    value: 25,
+    suffix: "+",
+    icon: Coffee,
+    color: "from-rose-500 to-rose-600",
+    description: "Unique handcrafted recipes",
+  },
+  {
+    label: "Eco-Friendly Packaging",
+    value: 100,
+    suffix: "%",
+    icon: Leaf,
+    color: "from-lime-500 to-lime-600",
+    description: "Sustainable commitment",
+  },
+]
+.map((metric, index) => (
                 <FadeInView key={metric.label} delay={0.1 * index}>
                   <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group">
                     <CardContent className="p-6 text-center">
@@ -929,9 +1138,9 @@ export default function Home() {
                 {/* Enhanced Rating Bars */}
                 <div className="grid md:grid-cols-3 gap-8">
                   {[
-                    { platform: "Zomato", rating: 4.3, reviews: "2.1k", color: "#E23744" },
-                    { platform: "Swiggy", rating: 4.5, reviews: "1.8k", color: "#FC8019" },
-                    { platform: "Google", rating: 4.2, reviews: "950", color: "#4285F4" },
+                    { platform: "Zomato", rating: 4.5, reviews: "262", color: "#E23744" },
+                    { platform: "Swiggy", rating: 4.7, reviews: "52", color: "#FC8019" },
+                    { platform: "Google", rating: 4.1, reviews: "42", color: "#4285F4" },
                   ].map((item, index) => (
                     <motion.div
                       key={item.platform}
@@ -1025,17 +1234,6 @@ export default function Home() {
                   date: "2 weeks ago",
                 },
                 {
-                  name: "Arjun Krishnan",
-                  role: "Coffee Enthusiast",
-                  review:
-                    "Finally found a place that understands specialty coffee! No processed sugars, ethically sourced beans, and incredible flavor profiles. Umber is setting new standards in Chennai's coffee scene.",
-                  rating: 5,
-                  platform: "Zomato",
-                  avatar: "AK",
-                  verified: true,
-                  date: "1 month ago",
-                },
-                {
                   name: "Meera Patel",
                   role: "Local Foodie",
                   review:
@@ -1045,6 +1243,17 @@ export default function Home() {
                   avatar: "MP",
                   verified: true,
                   date: "3 weeks ago",
+                },
+                {
+                  name: "Arjun Iyer",
+                  role: "Coffee Enthusiast",
+                  review:
+                    "Umber's commitment to quality is evident in every sip. Their specialty drinks are a revelation, and I love that they focus on clean ingredients. It's refreshing to find a coffee shop that truly cares.",
+                  rating: 4,
+                  platform: "Zomato",
+                  avatar: "AI",
+                  verified: true,
+                  date: "1 month ago",
                 },
               ].map((testimonial, index) => (
                 <FadeInView key={testimonial.name} delay={0.8 + index * 0.1}>

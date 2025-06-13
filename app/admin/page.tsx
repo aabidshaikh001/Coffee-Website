@@ -19,9 +19,9 @@ export default function AdminDashboard() {
       setIsLoading(true)
       try {
         const [menuResponse, locationsResponse, usersResponse] = await Promise.all([
-          fetch("https://backendcoffee-production.up.railway.app/api/menu"),
-          fetch("https://backendcoffee-production.up.railway.app/api/locations"),
-          fetch("https://backendcoffee-production.up.railway.app/api/leads"),
+          fetch("https://backendcoffee-1.onrender.com/api/menu"),
+          fetch("https://backendcoffee-1.onrender.com/api/locations"),
+          fetch("https://backendcoffee-1.onrender.com/api/leads"),
         ])
 
         const menuData = await menuResponse.json()
@@ -52,9 +52,9 @@ export default function AdminDashboard() {
     setIsLoading(true)
     try {
       const [menuResponse, locationsResponse, usersResponse] = await Promise.all([
-        fetch("https://backendcoffee-production.up.railway.app/api/menu"),
-        fetch("https://backendcoffee-production.up.railway.app/api/locations"),
-        fetch("https://backendcoffee-production.up.railway.app/api/leads"),
+        fetch("https://backendcoffee-1.onrender.com/api/menu"),
+        fetch("https://backendcoffee-1.onrender.com/api/locations"),
+        fetch("https://backendcoffee-1.onrender.com/api/leads"),
       ])
 
       const menuData = await menuResponse.json()

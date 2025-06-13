@@ -23,7 +23,7 @@ export default function AdminLogin() {
 
     try {
       // Make direct API call to login endpoint
-      const response = await fetch(`https://backendcoffee-production.up.railway.app/api/admin`, {
+      const response = await fetch(`https://backendcoffee-1.onrender.com/api/admin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

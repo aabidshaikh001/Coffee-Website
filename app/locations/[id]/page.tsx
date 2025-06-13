@@ -16,7 +16,7 @@ export default function LocationPage({ params }: { params: { id: string } }) {
     const fetchLocation = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`https://backendcoffee-production.up.railway.app/api/locations/${params.id}`)
+        const response = await fetch(`https://backendcoffee-1.onrender.com/api/locations/${params.id}`)
         if (!response.ok) {
           throw new Error("Failed to fetch location details")
         }
@@ -63,7 +63,7 @@ export default function LocationPage({ params }: { params: { id: string } }) {
     <div className="min-h-screen bg-white">
           <Header/>
       <div className="container mx-auto px-4 pt-24 pb-12"> {/* Increased top padding */}
-        <Link href="/locations" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
+        <Link href="/" className="inline-flex items-center text-amber-800 hover:text-amber-900 mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Locations
         </Link>

@@ -8,7 +8,7 @@ import { Coffee, ArrowLeft, Loader2 } from "lucide-react"
 import Header from "@/components/header"
    ""
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-production.up.railway.app/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-1.onrender.com/api"
 
 export default function MenuPage() {
   const [menuItems, setMenuItems] = useState([])
@@ -19,7 +19,7 @@ export default function MenuPage() {
     const fetchMenuItems = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`https://backendcoffee-production.up.railway.app/api/menu`)
+        const response = await fetch(`https://backendcoffee-1.onrender.com/api/menu`)
 
         if (!response.ok) {
           throw new Error("Failed to fetch menu items")

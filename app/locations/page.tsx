@@ -7,7 +7,7 @@ import { MapPin,  Clock, Navigation, Loader2 } from "lucide-react"
 import Header from "@/components/header"
    ""
 // Backend API URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-production.up.railway.app/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backendcoffee-1.onrender.com/api"
 
 export default function LocationsPage() {
   const [locations, setLocations] = useState([])

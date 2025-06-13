@@ -25,7 +25,7 @@ export default function AdminLocations() {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const res = await fetch("https://backendcoffee-production.up.railway.app/api/locations") // Replace with your actual API endpoint
+        const res = await fetch("https://backendcoffee-1.onrender.com/api/locations") // Replace with your actual API endpoint
         const data = await res.json()
         setLocations(data)
       } catch (error) {
@@ -52,7 +52,7 @@ export default function AdminLocations() {
   const handleDeleteLocation = async (id: string) => {
     if (confirm("Are you sure you want to delete this location?")) {
       try {
-        const res = await fetch(`https://backendcoffee-production.up.railway.app/api/locations/${id}`, {
+        const res = await fetch(`https://backendcoffee-1.onrender.com/api/locations/${id}`, {
           method: "DELETE",
         })
   

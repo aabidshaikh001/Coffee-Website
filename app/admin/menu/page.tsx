@@ -25,7 +25,7 @@ export default function AdminMenuItems() {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const res = await fetch("https://backendcoffee-production.up.railway.app/api/menu") // replace with your real API
+        const res = await fetch("https://backendcoffee-1.onrender.com/api/menu") // replace with your real API
         const data = await res.json()
         setMenuItems(data)
       } catch (error) {
@@ -50,7 +50,7 @@ export default function AdminMenuItems() {
   const handleDeleteItem = async (id: string) => {
     if (confirm("Are you sure you want to delete this item?")) {
       try {
-        const res = await fetch(`https://backendcoffee-production.up.railway.app/api/menu/${id}`, {
+        const res = await fetch(`https://backendcoffee-1.onrender.com/api/menu/${id}`, {
           method: "DELETE",
         })
         if (res.ok) {
